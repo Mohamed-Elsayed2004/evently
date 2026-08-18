@@ -1,0 +1,48 @@
+import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/providers/language_provider.dart';
+import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/ui/screens/login_screen.dart';
+import 'package:evently/ui/screens/main_layout_screen.dart';
+import 'package:evently/ui/screens/profile_screen.dart';
+import 'package:evently/utils/app_routes.dart';
+import 'package:evently/utils/app_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(EventlyApp());
+}
+
+class EventlyApp extends StatelessWidget {
+  const EventlyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => LanguageProvider()),
+      ],
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: Locale(context.watch<LanguageProvider>().currentLanguage),
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: context.watch<ThemeProvider>().currentTheme,
+            routes: {
+              AppRoutes.mainLayout: (context) => MainLayoutScreen(),
+              AppRoutes.loginScreen: (context) => LoginScreen(),
+              AppRoutes.profileScreen:(context)=>ProfileScreen()
+            },
+            initialRoute: AppRoutes.mainLayout,
+          );
+        },
+      ),
+    );
+  }
+}
