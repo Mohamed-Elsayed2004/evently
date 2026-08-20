@@ -1,5 +1,6 @@
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/tab_info.dart';
+import 'package:evently/utils/app_color.dart';
 import 'package:evently/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,8 +21,7 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
     return Scaffold(
       bottomNavigationBar: _BottomNav(
         onTap: (index) {
-          setState(()=>currentIndex = index);
-          
+          setState(() => currentIndex = index);
         },
         currentIndex: currentIndex,
       ),
@@ -51,19 +51,32 @@ class _BottomNav extends StatelessWidget {
       ),
     ];
 
-    return BottomNavigationBar(
-      onTap: onTap,
-      currentIndex: currentIndex,
-      selectedFontSize: 15,
-      unselectedFontSize: 12,
-      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-      unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
-      items: List.generate(4, (index) {
-        return BottomNavigationBarItem(
-          icon: SvgPicture.asset(tabs[index].tabImage),
-          label: tabs[index].label,
-        );
-      }),
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      notchMargin: 0,
+      
+      child: BottomNavigationBar(
+        onTap: onTap,
+        currentIndex: currentIndex,
+        selectedFontSize: 15,
+        unselectedFontSize: 12,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
+        items: List.generate(3, (index) {
+          return BottomNavigationBarItem(
+            icon: SvgPicture.asset(tabs[index].tabImage),
+            activeIcon: SvgPicture.asset(
+              tabs[index].tabImage,
+      
+              colorFilter: ColorFilter.mode(
+                AppColor.primaryLightMode,
+                BlendMode.srcIn,
+              ),
+            ),
+            label: tabs[index].label,
+          );
+        }),
+      ),
     );
   }
 }
