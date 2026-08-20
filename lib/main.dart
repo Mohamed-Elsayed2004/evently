@@ -7,7 +7,7 @@ import 'package:evently/ui/screens/profile_screen.dart';
 import 'package:evently/utils/app_routes.dart';
 import 'package:evently/utils/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:provider/provider.dart';
 
 void main() {

@@ -1,9 +1,9 @@
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/tab_info.dart';
 import 'package:evently/utils/app_color.dart';
-import 'package:evently/utils/app_routes.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainLayoutScreen extends StatefulWidget {
@@ -54,7 +54,7 @@ class _BottomNav extends StatelessWidget {
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
       notchMargin: 0,
-      
+
       child: BottomNavigationBar(
         onTap: onTap,
         currentIndex: currentIndex,
