@@ -1,6 +1,7 @@
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/providers/language_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/ui/screens/add_event.dart';
 import 'package:evently/ui/screens/login_screen.dart';
 import 'package:evently/ui/screens/main_layout_screen.dart';
 import 'package:evently/ui/screens/profile_screen.dart';
@@ -37,7 +38,8 @@ class EventlyApp extends StatelessWidget {
             routes: {
               AppRoutes.mainLayout: (context) => MainLayoutScreen(),
               AppRoutes.loginScreen: (context) => LoginScreen(),
-              AppRoutes.profileScreen:(context)=>ProfileScreen()
+              AppRoutes.profileScreen: (context) => ProfileScreen(),
+              AppRoutes.addEventScreen: (context) => AddEventScreen(),
             },
             initialRoute: AppRoutes.mainLayout,
           );

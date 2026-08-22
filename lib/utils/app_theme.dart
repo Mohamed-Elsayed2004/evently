@@ -25,6 +25,9 @@ class AppTheme {
       ),
     ),
     appBarTheme: AppBarTheme(backgroundColor: AppColor.primaryLightMode),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
