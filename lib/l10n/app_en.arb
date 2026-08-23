@@ -21,5 +21,6 @@
   "theme": "Theme",
    "home": "Home",
   "favorite": "Favorite",
-  "profile": "Profile"
+  "profile": "Profile",
+  "welcomeBack": "Welcome Back"
 }
