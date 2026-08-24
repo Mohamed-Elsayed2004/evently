@@ -15,7 +15,7 @@ class EventType {
   static List<EventType> getEventType() {
     return [
       EventType(
-        icon: FontAwesomeIcons.tableCells,
+        icon: FontAwesomeIcons.tableCellsLarge,
         name: 'All',
         imagePathLight: '',
         imagePathDark: '',
