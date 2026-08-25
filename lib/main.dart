@@ -4,7 +4,7 @@ import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/ui/screens/add_event.dart';
 import 'package:evently/ui/screens/login_screen.dart';
 import 'package:evently/ui/screens/main_layout_screen.dart';
-import 'package:evently/ui/screens/profile_screen.dart';
+import 'package:evently/tabs/profile/profile_screen.dart';
 import 'package:evently/utils/app_routes.dart';
 import 'package:evently/utils/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class EventlyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider(create: (context) => LanguageProvider()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
       ],
       child: Builder(
         builder: (context) {

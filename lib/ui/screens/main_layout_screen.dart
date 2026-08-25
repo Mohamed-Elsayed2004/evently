@@ -1,7 +1,7 @@
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/tab_info.dart';
 import 'package:evently/tabs/home/home_tab_content.dart';
-import 'package:evently/ui/screens/profile_screen.dart';
+import 'package:evently/tabs/profile/profile_screen.dart';
 import 'package:evently/utils/app_color.dart';
 import 'package:evently/utils/app_routes.dart';
 

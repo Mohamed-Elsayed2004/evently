@@ -4,16 +4,15 @@ import 'package:evently/tabs/home/category_tab.dart';
 import 'package:evently/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 
-class HomeHeader extends StatefulWidget {
+class HomeHeader extends StatelessWidget {
   final List<EventType> categories;
-  const HomeHeader({super.key, required this.categories});
+  final TabController controller;
+  const HomeHeader({
+    super.key,
+    required this.categories,
+    required this.controller,
+  });
 
-  @override
-  State<HomeHeader> createState() => _HomeHeaderState();
-}
-
-class _HomeHeaderState extends State<HomeHeader> {
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,28 +34,29 @@ class _HomeHeaderState extends State<HomeHeader> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text('Moahemd Elsayed', style: AppTextStyle.headLine),
+            child: Text('Mohamed Elsayed', style: AppTextStyle.headLine),
           ),
           SizedBox(height: 24),
-          TabBar(
-            onTap: (index) {
-              setState(() {
-                currentIndex = index;
-              });
+          AnimatedBuilder(
+            animation: controller.animation!,
+            builder: (context, child) {
+              return TabBar(
+                controller: controller,
+                isScrollable: true,
+                tabAlignment: .start,
+                labelPadding: EdgeInsets.symmetric(horizontal: 10),
+                indicator: const BoxDecoration(),
+                dividerColor: Colors.transparent,
+                splashBorderRadius: BorderRadius.circular(16),
+                tabs: [
+                  for (int i = 0; i < categories.length; i++)
+                    CategoryTab(
+                      category: categories[i],
+                      isSelected: controller.animation!.value.round() == i,
+                    ),
+                ],
+              );
             },
-            isScrollable: true,
-            tabAlignment: .start,
-            labelPadding: EdgeInsets.symmetric(horizontal: 10),
-            indicator: const BoxDecoration(),
-            dividerColor: Colors.transparent,
-            splashBorderRadius: BorderRadius.circular(16),
-            tabs: [
-              for (int i = 0; i < widget.categories.length; i++)
-                CategoryTab(
-                  category: widget.categories[i],
-                  isSelected: currentIndex == i,
-                ),
-            ],
           ),
         ],
       ),

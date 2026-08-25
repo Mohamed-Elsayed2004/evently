@@ -12,42 +12,14 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: MediaQuery.sizeOf(context).height * .2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.only(
-            bottomLeft: Radius.circular(64),
-          ),
-        ),
-        title: Row(
-          children: [
-            ProfilePicture(),
-            SizedBox(width: 20),
-            Flexible(
-              child: Column(
-                spacing: 10,
-                crossAxisAlignment: .start,
-                children: [
-                  Text(
-                    'Mohamed elsayed',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
-                  ),
-                  Text(
-                    'mohamedelsayed2004@gmail.com',
-                    maxLines: 2,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+    
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
+          
           spacing: 20,
           children: [
+            ProfilePicture(),
             SizedBox(height: 10),
             SettingWidget(
               label: AppLocalizations.of(context)!.language,
@@ -77,9 +49,9 @@ class ProfilePicture extends StatelessWidget {
       width: 124,
       height: 124,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.red,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24),
+          topLeft: Radius.circular(1000),
           topRight: Radius.circular(1000),
           bottomLeft: Radius.circular(1000),
           bottomRight: Radius.circular(1000),
@@ -142,3 +114,27 @@ class SettingWidget extends StatelessWidget {
               ),
             );
           } */
+
+         /*Row(
+          children: [
+            ProfilePicture(),
+            SizedBox(width: 20),
+            Flexible(
+              child: Column(
+                spacing: 10,
+                crossAxisAlignment: .start,
+                children: [
+                  Text(
+                    'Mohamed elsayed',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    'mohamedelsayed2004@gmail.com',
+                    maxLines: 2,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ), */

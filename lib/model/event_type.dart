@@ -28,7 +28,7 @@ class EventType {
       ),
       EventType(
         icon: FontAwesomeIcons.cakeCandles,
-        name: 'BirthDay',
+        name: 'Birthday',
         imagePathLight: 'assets/images/Birthday_light.png',
         imagePathDark: 'assets/images/Birthday_dark.png',
       ),
