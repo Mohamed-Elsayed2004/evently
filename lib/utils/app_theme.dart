@@ -25,7 +25,10 @@ class AppTheme {
         color: AppColor.mainTextLightMode,
       ),
     ),
-    appBarTheme: AppBarTheme(backgroundColor: AppColor.primaryLightMode),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColor.backgroundLightMode,
+      centerTitle: true,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
     ),
@@ -53,6 +56,9 @@ class AppTheme {
         color: AppColor.mainTextDarkMode,
       ),
     ),
-    appBarTheme: AppBarTheme(backgroundColor: AppColor.primaryDarkMode),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColor.backgroundDarkMode,
+      centerTitle: true,
+    ),
   );
 }

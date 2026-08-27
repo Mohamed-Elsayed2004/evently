@@ -79,4 +79,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcomeBack => 'Welcome Back';
+
+  @override
+  String get darkMode => 'Dark mode';
+
+  @override
+  String get add_event => 'Add event';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get birthday => 'Birthday';
+
+  @override
+  String get sport => 'Sport';
+
+  @override
+  String get book_club => 'Book Club';
+
+  @override
+  String get meeting => 'Meeting';
+
+  @override
+  String get exhibition => 'Exhibition';
 }

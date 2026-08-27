@@ -79,4 +79,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get welcomeBack => 'مرحبًا بعودتك';
+
+  @override
+  String get darkMode => 'الوضع الداكن';
+
+  @override
+  String get add_event => 'إضافة حدث';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get birthday => 'عيد ميلاد';
+
+  @override
+  String get sport => 'رياضة';
+
+  @override
+  String get book_club => 'نادي الكتاب';
+
+  @override
+  String get meeting => 'اجتماع';
+
+  @override
+  String get exhibition => 'معرض';
 }

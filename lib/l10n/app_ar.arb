@@ -26,5 +26,13 @@
    "home": "الرئيسية",
   "favorite": "المفضلة",
   "profile": "الملف الشخصي",
-  "welcomeBack": "مرحبًا بعودتك"
+  "welcomeBack": "مرحبًا بعودتك",
+  "darkMode": "الوضع الداكن",
+  "add_event": "إضافة حدث",
+"all": "الكل",
+"birthday": "عيد ميلاد",
+"sport": "رياضة",
+"book_club": "نادي الكتاب",
+"meeting": "اجتماع",
+"exhibition": "معرض"
 }

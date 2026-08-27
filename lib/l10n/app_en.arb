@@ -22,5 +22,13 @@
    "home": "Home",
   "favorite": "Favorite",
   "profile": "Profile",
-  "welcomeBack": "Welcome Back"
+  "welcomeBack": "Welcome Back",
+  "darkMode": "Dark mode",
+  "add_event": "Add event",
+"all": "All",
+"birthday": "Birthday",
+"sport": "Sport",
+"book_club": "Book Club",
+"meeting": "Meeting",
+"exhibition": "Exhibition"
 }
