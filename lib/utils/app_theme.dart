@@ -32,6 +32,22 @@ class AppTheme {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      hintStyle: AppTextStyle.font14SecText,
+      
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color:AppColor.outLineLightMode )
+      ),
+      focusedBorder:OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color:AppColor.primaryLightMode )
+      ) ,
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color:AppColor.error )
+      ),
+    )
   );
 
   static ThemeData darkTheme = ThemeData(
