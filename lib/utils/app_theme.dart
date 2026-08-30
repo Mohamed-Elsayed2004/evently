@@ -34,20 +34,20 @@ class AppTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: AppTextStyle.font14SecText,
-      
+
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide(color:AppColor.outLineLightMode )
+        borderSide: BorderSide(color: AppColor.outLineLightMode),
       ),
-      focusedBorder:OutlineInputBorder(
+      focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide(color:AppColor.primaryLightMode )
-      ) ,
+        borderSide: BorderSide(color: AppColor.primaryLightMode),
+      ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide(color:AppColor.error )
+        borderSide: BorderSide(color: AppColor.error),
       ),
-    )
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -75,6 +75,20 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       backgroundColor: AppColor.backgroundDarkMode,
       centerTitle: true,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: AppColor.outLineDarkMode),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: AppColor.primaryDarkMode),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: AppColor.error),
+      ),
     ),
   );
 }

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
+typedef Validator = String? Function(String?)?;
+
 class CustomTextFormField extends StatelessWidget {
-  String? Function(String?)? validator;
+  final Validator validator;
   final bool? obscureText;
   final int? maxLines;
-  String? hintText;
-  String? labelText;
-  Widget? prefixIcon;
-  Widget? suffixIcon;
-  CustomTextFormField({
+  final String? hintText;
+  final String? labelText;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+ const CustomTextFormField({
     super.key,
     this.obscureText,
     this.maxLines,

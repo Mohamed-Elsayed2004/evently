@@ -2,15 +2,27 @@ import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/event.dart';
 import 'package:evently/model/event_type.dart';
 import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/ui/widgets/custom_button.dart';
 import 'package:evently/ui/widgets/custom_text_form_field.dart';
+import 'package:evently/ui/widgets/date_and_time_field.dart';
 import 'package:evently/utils/app_text_style.dart';
+import 'package:evently/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class AddEventScreen extends StatelessWidget {
+class AddEventScreen extends StatefulWidget {
   const AddEventScreen({super.key});
 
+  @override
+  State<AddEventScreen> createState() => _AddEventScreenState();
+}
+
+class _AddEventScreenState extends State<AddEventScreen> {
+  DateTime? selectedDate;
+  String? formatedDate;
+  String? formatedTime;
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -19,16 +31,72 @@ class AddEventScreen extends StatelessWidget {
       appBar: AppBar(title: Text(l10n.add_event)),
       body: Padding(
         padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
-        child: Column(
-          spacing: 16,
-          children: [
-            EventTypeSelector(events: eventTypes),
-            Text('Title',style:AppTextStyle.font16SecText ,),
-            CustomTextFormField(labelText: 'Event Title'),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: .start,
+            spacing: 8,
+            children: [
+              EventTypeSelector(events: eventTypes),
+              SizedBox(height: 8),
+              Text('Title', style: AppTextStyle.font16Text),
+              CustomTextFormField(labelText: 'Event Title'),
+              Text('Description ', style: AppTextStyle.font16Text),
+              CustomTextFormField(
+                labelText: 'Event Description....',
+                maxLines: 5,
+              ),
+              DateAndTimeField(
+                label: 'Event Date',
+                svgIcon: Assets.calendarSVG,
+                chooseText: formatedDate == null
+                    ? 'Choose date'
+                    : formatedDate!,
+                onTap: () {
+                  chooseDate();
+                },
+              ),
+              DateAndTimeField(
+                label: 'Event Time',
+                svgIcon: Assets.clockSVG,
+                chooseText: formatedTime == null
+                    ? 'Choose time'
+                    : formatedTime!,
+                onTap: () {
+                  chooseTime();
+                },
+              ),
+              SizedBox(height: MediaQuery.sizeOf(context).height * .02),
+              CustomButton(onTap: () {}, text: 'Add event'),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> chooseDate() async {
+    var chooseDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime.now().subtract(Duration(days: 365)),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+      initialDate: DateTime.now(),
+    );
+    selectedDate = chooseDate;
+    setState(() {
+      formatedDate = selectedDate == null
+          ? null
+          : DateFormat('MMM d, y').format(selectedDate!);
+    });
+  }
+
+  Future<void> chooseTime() async {
+    var chooseTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    setState(() {
+      formatedTime = chooseTime?.format(context);
+    });
   }
 }
 

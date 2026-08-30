@@ -8,8 +8,12 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
     color: AppColor.secTextLightMode,
   );
-  static const font16SecText = TextStyle(
+  static const font16Text = TextStyle(
     fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+  static const font20Text = TextStyle(
+    fontSize: 20,
     fontWeight: FontWeight.w500,
   );
 }

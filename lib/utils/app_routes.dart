@@ -4,4 +4,5 @@ class AppRoutes {
   static const loginScreen = 'LoginScreen';
   static const registerScreen = 'RegisterScreen';
   static const addEventScreen = 'AddEventScreen';
+  
 }
