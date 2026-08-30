@@ -103,4 +103,52 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get exhibition => 'معرض';
+
+  @override
+  String get login_to_your_account => 'تسجيل الدخول إلى حسابك';
+
+  @override
+  String get enter_your_email => 'أدخل بريدك الإلكتروني';
+
+  @override
+  String get enter_your_password => 'أدخل كلمة المرور';
+
+  @override
+  String get forget_password => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
+  String get dont_have_an_account => 'ليس لديك حساب؟';
+
+  @override
+  String get sign_up => 'إنشاء حساب';
+
+  @override
+  String get or => 'أو';
+
+  @override
+  String get login_with_google => 'تسجيل الدخول باستخدام Google';
+
+  @override
+  String get create_your_account => 'أنشئ حسابك';
+
+  @override
+  String get enter_your_name => 'أدخل اسمك';
+
+  @override
+  String get confirm_your_password => 'تأكيد كلمة المرور';
+
+  @override
+  String get already_have_an_account => 'لديك حساب بالفعل؟';
+
+  @override
+  String get sign_up_with_google => 'إنشاء حساب باستخدام Google';
+
+  @override
+  String get forget_password_title => 'نسيت كلمة المرور';
+
+  @override
+  String get reset_password => 'إعادة تعيين كلمة المرور';
 }

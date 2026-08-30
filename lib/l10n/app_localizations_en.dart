@@ -103,4 +103,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exhibition => 'Exhibition';
+
+  @override
+  String get login_to_your_account => 'Login to your account';
+
+  @override
+  String get enter_your_email => 'Enter your email';
+
+  @override
+  String get enter_your_password => 'Enter your password';
+
+  @override
+  String get forget_password => 'Forget Password?';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get dont_have_an_account => 'Don’t have an account?';
+
+  @override
+  String get sign_up => 'Sign up';
+
+  @override
+  String get or => 'Or';
+
+  @override
+  String get login_with_google => 'Login with Google';
+
+  @override
+  String get create_your_account => 'Create your account';
+
+  @override
+  String get enter_your_name => 'Enter your name';
+
+  @override
+  String get confirm_your_password => 'Confirm your password';
+
+  @override
+  String get already_have_an_account => 'Already have an account?';
+
+  @override
+  String get sign_up_with_google => 'Sign up with Google';
+
+  @override
+  String get forget_password_title => 'Forget Password';
+
+  @override
+  String get reset_password => 'Reset password';
 }

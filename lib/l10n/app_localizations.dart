@@ -289,6 +289,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Exhibition'**
   String get exhibition;
+
+  /// No description provided for @login_to_your_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Login to your account'**
+  String get login_to_your_account;
+
+  /// No description provided for @enter_your_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get enter_your_email;
+
+  /// No description provided for @enter_your_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get enter_your_password;
+
+  /// No description provided for @forget_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget Password?'**
+  String get forget_password;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @dont_have_an_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Don’t have an account?'**
+  String get dont_have_an_account;
+
+  /// No description provided for @sign_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get sign_up;
+
+  /// No description provided for @or.
+  ///
+  /// In en, this message translates to:
+  /// **'Or'**
+  String get or;
+
+  /// No description provided for @login_with_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with Google'**
+  String get login_with_google;
+
+  /// No description provided for @create_your_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your account'**
+  String get create_your_account;
+
+  /// No description provided for @enter_your_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get enter_your_name;
+
+  /// No description provided for @confirm_your_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your password'**
+  String get confirm_your_password;
+
+  /// No description provided for @already_have_an_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get already_have_an_account;
+
+  /// No description provided for @sign_up_with_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up with Google'**
+  String get sign_up_with_google;
+
+  /// No description provided for @forget_password_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget Password'**
+  String get forget_password_title;
+
+  /// No description provided for @reset_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get reset_password;
 }
 
 class _AppLocalizationsDelegate

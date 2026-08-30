@@ -41,7 +41,7 @@ class EventlyApp extends StatelessWidget {
               AppRoutes.profileScreen: (context) => ProfileScreen(),
               AppRoutes.addEventScreen: (context) => AddEventScreen(),
             },
-            initialRoute: AppRoutes.mainLayout,
+            initialRoute: AppRoutes.loginScreen,
           );
         },
       ),

@@ -30,5 +30,21 @@
 "sport": "Sport",
 "book_club": "Book Club",
 "meeting": "Meeting",
-"exhibition": "Exhibition"
+"exhibition": "Exhibition",
+"login_to_your_account": "Login to your account",
+  "enter_your_email": "Enter your email",
+  "enter_your_password": "Enter your password",
+  "forget_password": "Forget Password?",
+  "login": "Login",
+  "dont_have_an_account": "Don’t have an account?",
+  "sign_up": "Sign up",
+  "or": "Or",
+  "login_with_google": "Login with Google",
+  "create_your_account": "Create your account",
+  "enter_your_name": "Enter your name",
+  "confirm_your_password": "Confirm your password",
+  "already_have_an_account": "Already have an account?",
+  "sign_up_with_google": "Sign up with Google",
+  "forget_password_title": "Forget Password",
+  "reset_password": "Reset password"
 }

@@ -10,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? labelText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
- const CustomTextFormField({
+  const CustomTextFormField({
     super.key,
     this.obscureText,
     this.maxLines,
@@ -32,9 +32,15 @@ class CustomTextFormField extends StatelessWidget {
       maxLines: maxLines,
 
       decoration: InputDecoration(
+        prefixIconConstraints: BoxConstraints(),
+        filled: true,
+        fillColor: theme.colorScheme.surfaceContainer,
         hintText: hintText,
         labelText: labelText,
-        prefixIcon: prefixIcon,
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: prefixIcon,
+        ),
         suffixIcon: suffixIcon,
         alignLabelWithHint: true,
       ),
