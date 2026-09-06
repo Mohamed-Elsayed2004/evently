@@ -28,8 +28,9 @@ class CustomTextFormField extends StatelessWidget {
       cursorColor: theme.colorScheme.primary,
       validator: validator,
       obscureText: obscureText ?? false,
+      obscuringCharacter: '*',
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      maxLines: maxLines,
+      maxLines: obscureText == true ? 1 : maxLines,
 
       decoration: InputDecoration(
         prefixIconConstraints: BoxConstraints(),
