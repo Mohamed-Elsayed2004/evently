@@ -2,6 +2,7 @@ import 'package:evently/model/event.dart';
 import 'package:evently/model/event_type.dart';
 import 'package:evently/tabs/home/Event_list_view.dart';
 import 'package:evently/tabs/home/home_header.dart';
+import 'package:evently/firebase/firestore_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class _HomeTabContentState extends State<HomeTabContent>
     with SingleTickerProviderStateMixin {
   final List<EventType> category = EventType.getEventType();
 
-  final List<Event> events = [
+  /*final List<Event> events = [
     Event(
       title: 'this is Event',
       description: 'I will meet ali in the schoole',
@@ -45,12 +46,14 @@ class _HomeTabContentState extends State<HomeTabContent>
       dateTime: DateTime.now(),
       eventType: 'Birthday',
     ),
-  ];
+  ];*/
   late TabController tabController;
+
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: category.length, vsync: this);
+    FirestoreService.getEvents();
   }
 
   @override
@@ -69,7 +72,7 @@ class _HomeTabContentState extends State<HomeTabContent>
                   for (final cate in category)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: EventListView(events: events),
+                      child: EventListView(events: []),
                     ),
                 ],
               ),

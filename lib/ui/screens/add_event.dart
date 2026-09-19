@@ -7,6 +7,7 @@ import 'package:evently/ui/widgets/custom_text_form_field.dart';
 import 'package:evently/ui/widgets/date_and_time_field.dart';
 import 'package:evently/utils/app_text_style.dart';
 import 'package:evently/utils/assets.dart';
+import 'package:evently/firebase/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -66,7 +67,12 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 },
               ),
               SizedBox(height: MediaQuery.sizeOf(context).height * .02),
-              CustomButton(onTap: () {}, text: 'Add event'),
+              CustomButton(
+                onTap: () {
+                  FirestoreService.addEvent();
+                },
+                text: 'Add event',
+              ),
             ],
           ),
         ),
