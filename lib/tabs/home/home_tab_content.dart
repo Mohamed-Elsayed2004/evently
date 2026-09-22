@@ -2,7 +2,7 @@ import 'package:evently/model/event.dart';
 import 'package:evently/model/event_type.dart';
 import 'package:evently/tabs/home/Event_list_view.dart';
 import 'package:evently/tabs/home/home_header.dart';
-import 'package:evently/firebase/firestore_service.dart';
+import 'package:evently/firebase/events_firestore_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +53,7 @@ class _HomeTabContentState extends State<HomeTabContent>
   void initState() {
     super.initState();
     tabController = TabController(length: category.length, vsync: this);
-    FirestoreService.getEvents();
+    EventsFirestoreService.getEvents();
   }
 
   @override

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/model/event.dart';
 import 'package:evently/utils/app_firestore_collections.dart';
 
-class FirestoreService {
+class EventsFirestoreService {
   static final eventRef = FirebaseFirestore.instance
       .collection(AppFirestoreCollections.events)
       .withConverter<Event>(
@@ -12,7 +12,7 @@ class FirestoreService {
         toFirestore: (event, _) => event.toJson(),
       );
 
-  static addEvent() async {
+  static Future<void> addEvent() async {
     await eventRef.add(
       Event(
         title: 'game play',
