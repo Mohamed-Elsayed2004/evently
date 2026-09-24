@@ -151,4 +151,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reset_password => 'Reset password';
+
+  @override
+  String get pleaseEnterYourName => 'Please enter your name';
+
+  @override
+  String get nameCanOnlyContainLetters => 'Name can only contain letters';
+
+  @override
+  String get pleaseEnterYourEmail => 'Please enter your email';
+
+  @override
+  String get pleaseEnterAValidEmail => 'Please enter a valid email';
+
+  @override
+  String get pleaseEnterYourPassword => 'Please enter your password';
+
+  @override
+  String get passwordMustBeAtLeast6Characters =>
+      'Password must be at least 6 characters';
+
+  @override
+  String get passwordMustContainAtLeastOneNumber =>
+      'Password must contain at least one number';
+
+  @override
+  String get passwordMustContainAtLeastOneSpecialCharacter =>
+      'Password must contain at least one special character';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get fieldIsRequired => 'Field is required';
+
+  @override
+  String get pleaseEnterAValidEgyptianPhoneNumber =>
+      'Please enter a valid Egyptian phone number';
+
+  @override
+  String get thereIsAnError => 'There is an error';
 }

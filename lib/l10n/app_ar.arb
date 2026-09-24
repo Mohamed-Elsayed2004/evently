@@ -50,5 +50,17 @@
   "already_have_an_account": "لديك حساب بالفعل؟",
   "sign_up_with_google": "إنشاء حساب باستخدام Google",
   "forget_password_title": "نسيت كلمة المرور",
-  "reset_password": "إعادة تعيين كلمة المرور"
+  "reset_password": "إعادة تعيين كلمة المرور",
+  "pleaseEnterYourName": "من فضلك أدخل اسمك",
+  "nameCanOnlyContainLetters": "الاسم يجب أن يحتوي على حروف فقط",
+  "pleaseEnterYourEmail": "من فضلك أدخل بريدك الإلكتروني",
+  "pleaseEnterAValidEmail": "من فضلك أدخل بريدًا إلكترونيًا صحيحًا",
+  "pleaseEnterYourPassword": "من فضلك أدخل كلمة المرور",
+  "passwordMustBeAtLeast6Characters": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
+  "passwordMustContainAtLeastOneNumber": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل",
+  "passwordMustContainAtLeastOneSpecialCharacter": "يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل",
+  "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين",
+  "fieldIsRequired": "هذا الحقل مطلوب",
+  "pleaseEnterAValidEgyptianPhoneNumber": "من فضلك أدخل رقم هاتف مصري صحيح",
+  "thereIsAnError":"هناك خطأ"
 }

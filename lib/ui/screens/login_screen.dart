@@ -129,7 +129,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
-                      CustomTextButton(onTap: () {}, text: l10n.sign_up),
+                      CustomTextButton(
+                        onTap: () {
+                          Navigator.of(
+                            context,
+                          ).pushNamed(AppRoutes.registerScreen);
+                        },
+                        text: l10n.sign_up,
+                      ),
                     ],
                   ),
                   SizedBox(height: height * .025),

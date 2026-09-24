@@ -44,4 +44,30 @@ class FirebaseAuthService {
   static Future<void> resetPassword({required String email}) async {
     await auth.sendPasswordResetEmail(email: email);
   }
+
+  static String authErrorMessage(FirebaseAuthException e) {
+  switch (e.code) {
+    case 'invalid-credential':
+    case 'user-not-found':
+    case 'wrong-password':
+      return 'Wrong email or password.';
+    case 'invalid-email':
+      return 'That email address is not valid.';
+    case 'email-already-in-use':
+      return 'An account already exists for that email.';
+    case 'weak-password':
+      return 'Password is too weak. Use at least 6 characters.';
+    case 'user-disabled':
+      return 'This account has been disabled.';
+    case 'too-many-requests':
+      return 'Too many attempts. Try again later.';
+    case 'network-request-failed':
+      return 'No internet connection.';
+    case 'operation-not-allowed':
+      return 'Email sign-in is not enabled for this project.';
+    default:
+      return e.message ?? 'Something went wrong. Please try again.';
+  }
+}
+
 }

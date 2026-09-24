@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 typedef Validator = String? Function(String?)?;
-
+typedef OnChange =void Function(String)?;
 class CustomTextFormField extends StatelessWidget {
+  final OnChange onChange;
   final Validator validator;
   final bool? obscureText;
   final int? maxLines;
@@ -18,13 +19,14 @@ class CustomTextFormField extends StatelessWidget {
     this.hintText,
     this.labelText,
     this.prefixIcon,
-    this.suffixIcon,
+    this.suffixIcon, this.onChange,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return TextFormField(
+      onChanged:onChange ,
       cursorColor: theme.colorScheme.primary,
       validator: validator,
       obscureText: obscureText ?? false,

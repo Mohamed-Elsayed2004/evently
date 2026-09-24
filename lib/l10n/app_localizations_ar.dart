@@ -151,4 +151,44 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get reset_password => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get pleaseEnterYourName => 'من فضلك أدخل اسمك';
+
+  @override
+  String get nameCanOnlyContainLetters => 'الاسم يجب أن يحتوي على حروف فقط';
+
+  @override
+  String get pleaseEnterYourEmail => 'من فضلك أدخل بريدك الإلكتروني';
+
+  @override
+  String get pleaseEnterAValidEmail => 'من فضلك أدخل بريدًا إلكترونيًا صحيحًا';
+
+  @override
+  String get pleaseEnterYourPassword => 'من فضلك أدخل كلمة المرور';
+
+  @override
+  String get passwordMustBeAtLeast6Characters =>
+      'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
+
+  @override
+  String get passwordMustContainAtLeastOneNumber =>
+      'يجب أن تحتوي كلمة المرور على رقم واحد على الأقل';
+
+  @override
+  String get passwordMustContainAtLeastOneSpecialCharacter =>
+      'يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل';
+
+  @override
+  String get passwordsDoNotMatch => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get fieldIsRequired => 'هذا الحقل مطلوب';
+
+  @override
+  String get pleaseEnterAValidEgyptianPhoneNumber =>
+      'من فضلك أدخل رقم هاتف مصري صحيح';
+
+  @override
+  String get thereIsAnError => 'هناك خطأ';
 }

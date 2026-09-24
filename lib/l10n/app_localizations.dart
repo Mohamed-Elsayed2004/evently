@@ -385,6 +385,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset password'**
   String get reset_password;
+
+  /// No description provided for @pleaseEnterYourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get pleaseEnterYourName;
+
+  /// No description provided for @nameCanOnlyContainLetters.
+  ///
+  /// In en, this message translates to:
+  /// **'Name can only contain letters'**
+  String get nameCanOnlyContainLetters;
+
+  /// No description provided for @pleaseEnterYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get pleaseEnterYourEmail;
+
+  /// No description provided for @pleaseEnterAValidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
+  String get pleaseEnterAValidEmail;
+
+  /// No description provided for @pleaseEnterYourPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password'**
+  String get pleaseEnterYourPassword;
+
+  /// No description provided for @passwordMustBeAtLeast6Characters.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get passwordMustBeAtLeast6Characters;
+
+  /// No description provided for @passwordMustContainAtLeastOneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one number'**
+  String get passwordMustContainAtLeastOneNumber;
+
+  /// No description provided for @passwordMustContainAtLeastOneSpecialCharacter.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one special character'**
+  String get passwordMustContainAtLeastOneSpecialCharacter;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @fieldIsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Field is required'**
+  String get fieldIsRequired;
+
+  /// No description provided for @pleaseEnterAValidEgyptianPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid Egyptian phone number'**
+  String get pleaseEnterAValidEgyptianPhoneNumber;
+
+  /// No description provided for @thereIsAnError.
+  ///
+  /// In en, this message translates to:
+  /// **'There is an error'**
+  String get thereIsAnError;
 }
 
 class _AppLocalizationsDelegate
