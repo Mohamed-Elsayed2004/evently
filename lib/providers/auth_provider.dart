@@ -4,25 +4,40 @@ import 'package:flutter/material.dart';
 
 class AuthProviderService extends ChangeNotifier {
   String? errorMessage;
-  bool isRegisterSuccess=false;
-  Future<void> register({
+
+  Future<bool> register({
     required String email,
     required String password,
     required String name,
   }) async {
+    errorMessage = null;
     try {
       await FirebaseAuthService.registerUser(
         email: email,
         password: password,
         name: name,
       );
-      isRegisterSuccess=true;
+      return true;
     } on FirebaseAuthException catch (e) {
       errorMessage = FirebaseAuthService.authErrorMessage(e);
+      return false;
     } catch (e) {
       errorMessage = e.toString();
+      return false;
     }
+  }
 
-    notifyListeners();
+  Future<bool> login({required String email, required String password}) async {
+    errorMessage = null;
+    try {
+      await FirebaseAuthService.loginUser(email: email, password: password);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      errorMessage = FirebaseAuthService.authErrorMessage(e);
+      return false;
+    } catch (e) {
+      errorMessage = e.toString();
+      return false;
+    }
   }
 }
