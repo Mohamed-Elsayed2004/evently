@@ -11,7 +11,7 @@ import 'package:evently/utils/app_text_style.dart';
 import 'package:evently/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
