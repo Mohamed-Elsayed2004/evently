@@ -1,3 +1,4 @@
+import 'package:evently/firebase/events_firestore_service.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/event.dart';
 import 'package:evently/model/event_type.dart';
@@ -5,12 +6,14 @@ import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/ui/widgets/custom_button.dart';
 import 'package:evently/ui/widgets/custom_text_form_field.dart';
 import 'package:evently/ui/widgets/date_and_time_field.dart';
+import 'package:evently/ui/widgets/show_snack_bar.dart';
+import 'package:evently/utils/app_color.dart';
 import 'package:evently/utils/app_text_style.dart';
 import 'package:evently/utils/assets.dart';
-import 'package:evently/firebase/events_firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 class AddEventScreen extends StatefulWidget {
@@ -21,59 +24,97 @@ class AddEventScreen extends StatefulWidget {
 }
 
 class _AddEventScreenState extends State<AddEventScreen> {
+  bool isLoading = false;
   DateTime? selectedDate;
   String? formatedDate;
   String? formatedTime;
+  late final ThemeMode themeMode;
+  late final ThemeData theme;
+  late final AppLocalizations l10n;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    themeMode = context.watch<ThemeProvider>().currentTheme;
+    theme = Theme.of(context);
+
+    l10n = AppLocalizations.of(context)!;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final eventTypes = EventType.getEventType().sublist(1);
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.add_event)),
-      body: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: .start,
-            spacing: 8,
-            children: [
-              EventTypeSelector(events: eventTypes),
-              SizedBox(height: 8),
-              Text('Title', style: AppTextStyle.font16Text),
-              CustomTextFormField(labelText: 'Event Title'),
-              Text('Description ', style: AppTextStyle.font16Text),
-              CustomTextFormField(
-                labelText: 'Event Description....',
-                maxLines: 5,
-              ),
-              DateAndTimeField(
-                label: 'Event Date',
-                svgIcon: Assets.calendarSVG,
-                chooseText: formatedDate == null
-                    ? 'Choose date'
-                    : formatedDate!,
-                onTap: () {
-                  chooseDate();
-                },
-              ),
-              DateAndTimeField(
-                label: 'Event Time',
-                svgIcon: Assets.clockSVG,
-                chooseText: formatedTime == null
-                    ? 'Choose time'
-                    : formatedTime!,
-                onTap: () {
-                  chooseTime();
-                },
-              ),
-              SizedBox(height: MediaQuery.sizeOf(context).height * .02),
-              CustomButton(
-                onTap: () {
-                  EventsFirestoreService.addEvent();
-                },
-                text: 'Add event',
-              ),
-            ],
+    return ModalProgressHUD(
+      inAsyncCall: isLoading,
+      progressIndicator: CircularProgressIndicator(
+        color: themeMode == ThemeMode.light
+            ? AppColor.primaryLightMode
+            : AppColor.primaryDarkMode,
+      ),
+      child: Scaffold(
+        appBar: AppBar(title: Text(l10n.add_event)),
+        body: Padding(
+          padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: .start,
+              spacing: 8,
+              children: [
+                EventTypeSelector(events: eventTypes),
+                SizedBox(height: 8),
+                Text('Title', style: AppTextStyle.font16Text),
+                CustomTextFormField(labelText: 'Event Title'),
+                Text('Description ', style: AppTextStyle.font16Text),
+                CustomTextFormField(
+                  labelText: 'Event Description....',
+                  maxLines: 5,
+                ),
+                DateAndTimeField(
+                  label: 'Event Date',
+                  svgIcon: Assets.calendarSVG,
+                  chooseText: formatedDate == null
+                      ? 'Choose date'
+                      : formatedDate!,
+                  onTap: () {
+                    chooseDate();
+                  },
+                ),
+                DateAndTimeField(
+                  label: 'Event Time',
+                  svgIcon: Assets.clockSVG,
+                  chooseText: formatedTime == null
+                      ? 'Choose time'
+                      : formatedTime!,
+                  onTap: () {
+                    chooseTime();
+                  },
+                ),
+                SizedBox(height: MediaQuery.sizeOf(context).height * .02),
+                CustomButton(
+                  onTap: () async {
+                    try {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await EventsFirestoreService.addEvent(
+                        event: Event(
+                          title: 'football',
+                          description: 'description',
+                          imagePath: 'imagePath',
+                          dateTime: DateTime.now(),
+                          eventType: 'eventType',
+                        ),
+                      );
+                      if (context.mounted) Navigator.of(context).pop();
+                    } catch (e) {
+                      if (context.mounted) showSnackBar(context, e.toString());
+                    } finally {
+                      if (mounted) setState(() => isLoading = false);
+                    }
+                  },
+                  text: 'Add event',
+                ),
+              ],
+            ),
           ),
         ),
       ),

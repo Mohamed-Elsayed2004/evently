@@ -45,6 +45,8 @@ class FirebaseAuthService {
     await auth.sendPasswordResetEmail(email: email);
   }
 
+  
+
   static String authErrorMessage(FirebaseAuthException e) {
   switch (e.code) {
     case 'invalid-credential':

@@ -25,6 +25,7 @@ class UsersFirestoreService {
              email: email,
           ),
         );
+        
   }
 
   static Stream<UserModel> getUser({required String uid}) {

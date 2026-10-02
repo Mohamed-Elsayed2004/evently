@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/providers/auth_provider.dart';
 import 'package:evently/providers/language_provider.dart';
@@ -9,6 +11,7 @@ import 'package:evently/tabs/profile/profile_screen.dart';
 import 'package:evently/ui/screens/register_screen.dart';
 import 'package:evently/utils/app_routes.dart';
 import 'package:evently/utils/app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -30,7 +33,9 @@ class EventlyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => LanguageProvider()),
-        ChangeNotifierProvider(create: (_) => AuthProviderService()),
+        ChangeNotifierProvider(
+          create: (_) => AuthProviderService()..listenToAuthChange(),
+        ),
       ],
       child: Builder(
         builder: (context) {
@@ -49,10 +54,27 @@ class EventlyApp extends StatelessWidget {
               AppRoutes.addEventScreen: (context) => AddEventScreen(),
               AppRoutes.registerScreen: (context) => RegisterScreen(),
             },
-            initialRoute: AppRoutes.loginScreen,
+            home: AuthGate(),
           );
         },
       ),
     );
+  }
+}
+
+class AuthGate extends StatelessWidget {
+  const AuthGate({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final authProvider = context.watch<AuthProviderService>();
+
+    if (authProvider.currentUser == null) {
+      return LoginScreen();
+    } else {
+      log(FirebaseAuth.instance.currentUser!.email!);
+      log('${authProvider.currentUser?.email}+ this is email');
+      return MainLayoutScreen();
+    }
   }
 }

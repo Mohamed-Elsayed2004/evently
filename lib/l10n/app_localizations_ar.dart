@@ -191,4 +191,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get thereIsAnError => 'هناك خطأ';
+
+  @override
+  String get logout => 'تسجيل الخروج';
 }

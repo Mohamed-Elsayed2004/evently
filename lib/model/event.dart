@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class Event {
+  String id;
   String title;
   String description;
   String imagePath;
@@ -16,6 +17,7 @@ class Event {
     required this.dateTime,
     required this.eventType,
     this.isFavourite = false,
+     this.id='',
   });
 
   factory Event.fromJson(Map<String, dynamic> data) {
@@ -25,18 +27,20 @@ class Event {
       imagePath: data['imagePath'],
       dateTime: (data['dateTime'] as Timestamp).toDate(),
       eventType: data['eventType'],
-      isFavourite: data['isFavourite']
+      isFavourite: data['isFavourite'],
+      id: data['id'],
     );
   }
 
-  Map<String,dynamic> toJson(){
-    return{
-      'title':title,
-      'description':description,
-      'imagePath':imagePath,
-      'dateTime':Timestamp.fromDate(dateTime),
-      'eventType':eventType,
-      'isFavourite':isFavourite
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'description': description,
+      'imagePath': imagePath,
+      'dateTime': Timestamp.fromDate(dateTime),
+      'eventType': eventType,
+      'isFavourite': isFavourite,
+      'id': id,
     };
   }
 }

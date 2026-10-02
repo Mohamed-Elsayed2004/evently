@@ -191,4 +191,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get thereIsAnError => 'There is an error';
+
+  @override
+  String get logout => 'Logout';
 }
