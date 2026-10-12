@@ -63,5 +63,6 @@
   "fieldIsRequired": "هذا الحقل مطلوب",
   "pleaseEnterAValidEgyptianPhoneNumber": "من فضلك أدخل رقم هاتف مصري صحيح",
   "thereIsAnError":"هناك خطأ",
-  "logout": "تسجيل الخروج"
+  "logout": "تسجيل الخروج",
+  "searchForEvent": "ابحث عن حدث"
 }

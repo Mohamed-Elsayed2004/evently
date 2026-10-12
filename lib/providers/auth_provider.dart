@@ -1,4 +1,6 @@
+import 'package:evently/firebase/events_firestore_service.dart';
 import 'package:evently/firebase/firebase_auth_service.dart';
+import 'package:evently/model/event.dart';
 import 'package:evently/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -62,4 +64,6 @@ class AuthProviderService extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  
 }

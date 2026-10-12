@@ -7,4 +7,5 @@ class Assets {
   static const smsSVG = 'assets/svg/sms.svg';
   static const googleLogo = 'assets/images/google_logo.png';
   static const userSvg = 'assets/svg/user.svg';
+  static const searchSvg = 'assets/svg/search.svg';
 }

@@ -1,6 +1,10 @@
 import 'package:evently/model/event.dart';
+import 'package:evently/providers/events_provider.dart';
+import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class EventItem extends StatelessWidget {
   final Event event;
@@ -45,6 +49,14 @@ class TitleBar extends StatefulWidget {
 }
 
 class _TitleBarState extends State<TitleBar> {
+  late  ThemeMode themeMode;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    themeMode = context.watch<ThemeProvider>().currentTheme;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,15 +74,25 @@ class _TitleBarState extends State<TitleBar> {
           Spacer(),
           InkWell(
             onTap: () {
-              setState(() {
-                widget.event.isFavourite = !widget.event.isFavourite;
-              });
+              context.read<EventsProvider>().toggleFavorite(
+                event: widget.event,
+              );
+              context.read<EventsProvider>().getFavoriteEventsTrigger();
             },
-            child: Icon(
-              widget.event.isFavourite ? Icons.favorite : Icons.favorite_border,
-              color: widget.theme.colorScheme.primary,
-              size: 25,
-            ),
+
+            child: context.watch<EventsProvider>().isLoading
+                ? CircularProgressIndicator(
+                    color: themeMode == ThemeMode.light
+                        ? AppColor.primaryLightMode
+                        : AppColor.primaryDarkMode,
+                  )
+                : Icon(
+                    widget.event.isFavourite
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: widget.theme.colorScheme.primary,
+                    size: 25,
+                  ),
           ),
         ],
       ),

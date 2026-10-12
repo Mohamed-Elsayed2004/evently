@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/providers/auth_provider.dart';
+import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/language_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/ui/screens/add_event.dart';
@@ -36,6 +37,7 @@ class EventlyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => AuthProviderService()..listenToAuthChange(),
         ),
+       ChangeNotifierProvider(create: (_)=>EventsProvider()),
       ],
       child: Builder(
         builder: (context) {

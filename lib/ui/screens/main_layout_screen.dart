@@ -1,5 +1,7 @@
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/tab_info.dart';
+import 'package:evently/providers/events_provider.dart';
+import 'package:evently/tabs/favouraite/favorite_tab.dart';
 import 'package:evently/tabs/home/home_tab_content.dart';
 import 'package:evently/tabs/profile/profile_screen.dart';
 import 'package:evently/utils/app_color.dart';
@@ -8,6 +10,7 @@ import 'package:evently/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class MainLayoutScreen extends StatefulWidget {
   const MainLayoutScreen({super.key});
@@ -18,8 +21,8 @@ class MainLayoutScreen extends StatefulWidget {
 
 class _MainLayoutScreenState extends State<MainLayoutScreen> {
   final List<Widget> tabsContent = [
-   HomeTabContent(),
-    Container(),
+    HomeTabContent(),
+    FavoriteTab(),
     ProfileScreen(),
   ];
   int currentIndex = 0;
@@ -35,6 +38,10 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
       ),
       bottomNavigationBar: _BottomNav(
         onTap: (index) {
+          if (index == 1) {
+            context.read<EventsProvider>().getFavoriteEventsTrigger();
+          }
+
           setState(() => currentIndex = index);
         },
         currentIndex: currentIndex,

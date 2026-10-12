@@ -30,4 +30,31 @@ class EventsFirestoreService {
     QuerySnapshot<Event> quarySnabshot = await eventsCollection(uid).get();
     return quarySnabshot.docs.map<Event>((doc) => doc.data()).toList();
   }
+
+  static updateEvent({required Event event}) async {
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
+    await eventsCollection(uid).doc(event.id).update(event.toJson());
+  }
+
+  static Future<List<Event>> getFavoriteEvents() async {
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
+    QuerySnapshot<Event> quarySnabshot = await eventsCollection(
+      uid,
+    ).where('isFavourite', isEqualTo: true).orderBy('dateTime').get();
+    return quarySnabshot.docs.map<Event>((doc) => doc.data()).toList();
+  }
+
+  static Stream<List<Event>> streamEvents({required String eventType}) {
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    Query<Event> query = eventsCollection(uid);
+
+    if (eventType != 'All') {
+      query = query.where('eventType', isEqualTo: eventType);
+    }
+
+    return query.snapshots().map(
+      (snapshot) => snapshot.docs.map((doc) => doc.data()).toList(),
+    );
+  }
 }

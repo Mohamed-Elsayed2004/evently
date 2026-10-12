@@ -97,11 +97,11 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       });
                       await EventsFirestoreService.addEvent(
                         event: Event(
-                          title: 'football',
+                          title: 'happy birthday',
                           description: 'description',
-                          imagePath: 'imagePath',
+                          imagePath: 'assets/images/Birthday_dark.png',
                           dateTime: DateTime.now(),
-                          eventType: 'eventType',
+                          eventType: 'Birthday',
                         ),
                       );
                       if (context.mounted) Navigator.of(context).pop();

@@ -194,4 +194,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get searchForEvent => 'Search for event';
 }

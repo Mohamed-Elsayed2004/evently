@@ -59,5 +59,6 @@
   "fieldIsRequired": "Field is required",
   "pleaseEnterAValidEgyptianPhoneNumber": "Please enter a valid Egyptian phone number",
   "thereIsAnError":"There is an error",
-  "logout": "Logout"
+  "logout": "Logout",
+  "searchForEvent": "Search for event"
 }

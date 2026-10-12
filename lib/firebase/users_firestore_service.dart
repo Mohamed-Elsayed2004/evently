@@ -14,25 +14,13 @@ class UsersFirestoreService {
     required String id,
     required String name,
     required String email,
-    
   }) async {
-    await userRef
-        .doc(id)
-        .set(
-          UserModel(
-            id: id,
-            name: name,
-             email: email,
-          ),
-        );
-        
+    await userRef.doc(id).set(UserModel(id: id, name: name, email: email));
   }
 
   static Stream<UserModel> getUser({required String uid}) {
-  return userRef.doc(uid).snapshots().map(
-    (snapshot) => snapshot.data()!,
-  );
-}
+    return userRef.doc(uid).snapshots().map((snapshot) => snapshot.data()!);
+  }
 
   static Future<void> updateUser({
     required String uid,
@@ -42,6 +30,6 @@ class UsersFirestoreService {
   }
 
   static Future<void> deleteUser({required String uid}) async {
-  await userRef.doc(uid).delete();
-}
+    await userRef.doc(uid).delete();
+  }
 }

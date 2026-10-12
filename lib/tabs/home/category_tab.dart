@@ -18,6 +18,7 @@ class CategoryTab extends StatelessWidget {
     final backgroundColor = Theme.of(context).colorScheme.primary;
     final textColor = Theme.of(context).colorScheme.onPrimary;
     return Tab(
+      
       height: 40,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),

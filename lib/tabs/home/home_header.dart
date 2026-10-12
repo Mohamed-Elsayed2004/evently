@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/model/event.dart';
 import 'package:evently/model/event_type.dart';
+import 'package:evently/providers/events_provider.dart';
 import 'package:evently/tabs/home/category_tab.dart';
 import 'package:evently/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeHeader extends StatelessWidget {
   final List<EventType> categories;
@@ -41,6 +45,11 @@ class HomeHeader extends StatelessWidget {
             animation: controller.animation!,
             builder: (context, child) {
               return TabBar(
+                onTap: (index) {
+                  context.read<EventsProvider>().eventType =
+                      categories[index].name;
+                  context.read<EventsProvider>().streamEventsTrigger();
+                },
                 controller: controller,
                 isScrollable: true,
                 tabAlignment: .start,
