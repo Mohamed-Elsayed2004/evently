@@ -6,6 +6,7 @@ class Event {
   String title;
   String description;
   String imagePath;
+  String imagePathDark;
   DateTime dateTime;
   String eventType;
   bool isFavourite;
@@ -17,7 +18,8 @@ class Event {
     required this.dateTime,
     required this.eventType,
     this.isFavourite = false,
-     this.id='',
+    this.id = '',
+    required this.imagePathDark,
   });
 
   factory Event.fromJson(Map<String, dynamic> data) {
@@ -29,6 +31,7 @@ class Event {
       eventType: data['eventType'],
       isFavourite: data['isFavourite'],
       id: data['id'],
+      imagePathDark: data['imagePathDark'],
     );
   }
 
@@ -37,6 +40,7 @@ class Event {
       'title': title,
       'description': description,
       'imagePath': imagePath,
+      'imagePathDark': imagePathDark,
       'dateTime': Timestamp.fromDate(dateTime),
       'eventType': eventType,
       'isFavourite': isFavourite,

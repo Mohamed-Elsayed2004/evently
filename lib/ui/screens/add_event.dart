@@ -24,10 +24,17 @@ class AddEventScreen extends StatefulWidget {
 }
 
 class _AddEventScreenState extends State<AddEventScreen> {
+  GlobalKey<FormState> formKey = GlobalKey();
   bool isLoading = false;
   DateTime? selectedDate;
+  TimeOfDay? selectedTime;
   String? formatedDate;
   String? formatedTime;
+  String title = '';
+  String description = '';
+  String imagePath = '';
+  String imagePathDark = '';
+  String eventType = '';
   late final ThemeMode themeMode;
   late final ThemeData theme;
   late final AppLocalizations l10n;
@@ -55,65 +62,123 @@ class _AddEventScreenState extends State<AddEventScreen> {
         body: Padding(
           padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: .start,
-              spacing: 8,
-              children: [
-                EventTypeSelector(events: eventTypes),
-                SizedBox(height: 8),
-                Text('Title', style: AppTextStyle.font16Text),
-                CustomTextFormField(labelText: 'Event Title'),
-                Text('Description ', style: AppTextStyle.font16Text),
-                CustomTextFormField(
-                  labelText: 'Event Description....',
-                  maxLines: 5,
-                ),
-                DateAndTimeField(
-                  label: 'Event Date',
-                  svgIcon: Assets.calendarSVG,
-                  chooseText: formatedDate == null
-                      ? 'Choose date'
-                      : formatedDate!,
-                  onTap: () {
-                    chooseDate();
-                  },
-                ),
-                DateAndTimeField(
-                  label: 'Event Time',
-                  svgIcon: Assets.clockSVG,
-                  chooseText: formatedTime == null
-                      ? 'Choose time'
-                      : formatedTime!,
-                  onTap: () {
-                    chooseTime();
-                  },
-                ),
-                SizedBox(height: MediaQuery.sizeOf(context).height * .02),
-                CustomButton(
-                  onTap: () async {
-                    try {
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: .start,
+                spacing: 8,
+                children: [
+                  EventTypeSelector(
+                    events: eventTypes,
+                    onEventSelected: (index) {
                       setState(() {
-                        isLoading = true;
+                        eventType = eventTypes[index].name;
+                        imagePath = eventTypes[index].imagePathLight;
+                        imagePathDark = eventTypes[index].imagePathDark;
                       });
-                      await EventsFirestoreService.addEvent(
-                        event: Event(
-                          title: 'happy birthday',
-                          description: 'description',
-                          imagePath: 'assets/images/Birthday_dark.png',
-                          dateTime: DateTime.now(),
-                          eventType: 'Birthday',
-                        ),
-                      );
-                      if (context.mounted) Navigator.of(context).pop();
-                    } catch (e) {
-                      if (context.mounted) showSnackBar(context, e.toString());
-                    } finally {
-                      if (mounted) setState(() => isLoading = false);
-                    }
-                  },
-                  text: 'Add event',
-                ),
-              ],
+                    },
+                  ),
+                  SizedBox(height: 8),
+                  Text(l10n.title, style: AppTextStyle.font16Text),
+                  CustomTextFormField(
+                    labelText: l10n.eventTitle,
+                    onChange: (data) => title = data,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter event title';
+                      }
+
+                      if (value.trim().length < 3) {
+                        return 'Title must be at least 3 characters';
+                      }
+
+                      if (value.trim().length > 100) {
+                        return 'Title must not exceed 100 characters';
+                      }
+
+                      return null;
+                    },
+                  ),
+                  Text(l10n.description, style: AppTextStyle.font16Text),
+                  CustomTextFormField(
+                    labelText: l10n.eventDescription,
+                    maxLines: 5,
+                    onChange: (data) => description = data,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter event description';
+                      }
+
+                      if (value.trim().length < 10) {
+                        return 'Description must be at least 10 characters';
+                      }
+
+                      return null;
+                    },
+                  ),
+                  DateAndTimeField(
+                    label: l10n.eventDate,
+                    svgIcon: Assets.calendarSVG,
+                    chooseText: formatedDate == null
+                        ? l10n.chooseDate
+                        : formatedDate!,
+                    onTap: () {
+                      chooseDate();
+                    },
+                  ),
+                  DateAndTimeField(
+                    label: l10n.eventTime,
+                    svgIcon: Assets.clockSVG,
+                    chooseText: formatedTime == null
+                        ? l10n.chooseTime
+                        : formatedTime!,
+                    onTap: () {
+                      chooseTime();
+                    },
+                  ),
+                  SizedBox(height: MediaQuery.sizeOf(context).height * .02),
+                  CustomButton(
+                    onTap: () async {
+                      if (formKey.currentState!.validate()) {
+                        if (selectedDate == null || selectedTime == null) {
+                          showSnackBar(context, l10n.selectDateAndTime);
+                          return;
+                        }
+                        try {
+                          setState(() {
+                            isLoading = true;
+                          });
+
+                          await EventsFirestoreService.addEvent(
+                            event: Event(
+                              title: title,
+                              description: description,
+                              imagePath: imagePath,
+                              imagePathDark: imagePathDark,
+                              dateTime: DateTime(
+                                selectedDate!.year,
+                                selectedDate!.month,
+                                selectedDate!.day,
+                                selectedTime!.hour,
+                                selectedTime!.minute,
+                              ),
+                              eventType: eventType,
+                            ),
+                          );
+                          if (context.mounted) Navigator.of(context).pop();
+                        } catch (e) {
+                          if (context.mounted) {
+                            showSnackBar(context, e.toString());
+                          }
+                        } finally {
+                          if (mounted) setState(() => isLoading = false);
+                        }
+                      }
+                    },
+                    text: l10n.addEvent,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -141,6 +206,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
       context: context,
       initialTime: TimeOfDay.now(),
     );
+    selectedTime = chooseTime;
     setState(() {
       formatedTime = chooseTime?.format(context);
     });
@@ -149,7 +215,12 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
 class EventTypeSelector extends StatefulWidget {
   final List<EventType> events;
-  const EventTypeSelector({super.key, required this.events});
+  final void Function(int index) onEventSelected;
+  const EventTypeSelector({
+    super.key,
+    required this.events,
+    required this.onEventSelected,
+  });
 
   @override
   State<EventTypeSelector> createState() => _EventTypeSelectorState();
@@ -179,9 +250,12 @@ class _EventTypeSelectorState extends State<EventTypeSelector> {
             scrollDirection: .horizontal,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () => setState(() {
-                  selectedIndex = index;
-                }),
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                  widget.onEventSelected(index);
+                },
                 child: EventTypeTab(
                   event: widget.events[index],
                   isSelected: selectedIndex == index,

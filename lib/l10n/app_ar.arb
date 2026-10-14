@@ -64,5 +64,15 @@
   "pleaseEnterAValidEgyptianPhoneNumber": "من فضلك أدخل رقم هاتف مصري صحيح",
   "thereIsAnError":"هناك خطأ",
   "logout": "تسجيل الخروج",
-  "searchForEvent": "ابحث عن حدث"
+  "searchForEvent": "ابحث عن حدث",
+  "title": "العنوان",
+  "eventTitle": "عنوان الحدث",
+  "description": "الوصف",
+   "eventDescription": "وصف الحدث....",
+  "eventDate": "تاريخ الحدث",
+  "chooseDate": "اختر التاريخ",
+  "eventTime": "وقت الحدث",
+  "chooseTime": "اختر الوقت",
+  "addEvent": "إضافة حدث",
+  "selectDateAndTime": "من فضلك اختر التاريخ والوقت"
 }

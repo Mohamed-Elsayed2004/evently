@@ -13,18 +13,21 @@ class EventItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final ThemeMode themeMode = context.watch<ThemeProvider>().currentTheme;
     return Container(
       height: 203,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: theme.colorScheme.outline),
-        image: event.imagePath.isEmpty
-            ? null
-            : DecorationImage(
-                image: AssetImage(event.imagePath),
-                fit: BoxFit.cover,
-              ),
+        image: DecorationImage(
+          image: AssetImage(
+            themeMode == ThemeMode.light
+                ? event.imagePath
+                : event.imagePathDark,
+          ),
+          fit: BoxFit.cover,
+        ),
       ),
       child: Column(
         crossAxisAlignment: .start,
@@ -49,7 +52,7 @@ class TitleBar extends StatefulWidget {
 }
 
 class _TitleBarState extends State<TitleBar> {
-  late  ThemeMode themeMode;
+  late ThemeMode themeMode;
 
   @override
   void didChangeDependencies() {

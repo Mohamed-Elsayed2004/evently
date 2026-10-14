@@ -60,5 +60,16 @@
   "pleaseEnterAValidEgyptianPhoneNumber": "Please enter a valid Egyptian phone number",
   "thereIsAnError":"There is an error",
   "logout": "Logout",
-  "searchForEvent": "Search for event"
+  "searchForEvent": "Search for event",
+  "title": "Title",
+  "eventTitle": "Event Title",
+  "description": "Description",
+   "eventDescription": "Event Description....",
+  "eventDate": "Event Date",
+  "chooseDate": "Choose date",
+  "eventTime": "Event Time",
+  "chooseTime": "Choose time",
+  "addEvent": "Add Event",
+  "selectDateAndTime": "Please select the date and time."
+
 }
