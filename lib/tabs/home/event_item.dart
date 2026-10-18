@@ -2,6 +2,7 @@ import 'package:evently/model/event.dart';
 import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/utils/app_color.dart';
+import 'package:evently/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -14,28 +15,35 @@ class EventItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final ThemeMode themeMode = context.watch<ThemeProvider>().currentTheme;
-    return Container(
-      height: 203,
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: theme.colorScheme.outline),
-        image: DecorationImage(
-          image: AssetImage(
-            themeMode == ThemeMode.light
-                ? event.imagePath
-                : event.imagePathDark,
+    return InkWell(
+      onTap: () {
+        Navigator.of(
+          context,
+        ).pushNamed(AppRoutes.eventDetailsScreen, arguments: event);
+      },
+      child: Container(
+        height: 203,
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: theme.colorScheme.outline),
+          image: DecorationImage(
+            image: AssetImage(
+              themeMode == ThemeMode.light
+                  ? event.imagePath
+                  : event.imagePathDark,
+            ),
+            fit: BoxFit.cover,
           ),
-          fit: BoxFit.cover,
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: .start,
-        children: [
-          DateBadge(theme: theme, event: event),
-          Spacer(),
-          TitleBar(theme: theme, event: event),
-        ],
+        child: Column(
+          crossAxisAlignment: .start,
+          children: [
+            DateBadge(theme: theme, event: event),
+            Spacer(),
+            TitleBar(theme: theme, event: event),
+          ],
+        ),
       ),
     );
   }

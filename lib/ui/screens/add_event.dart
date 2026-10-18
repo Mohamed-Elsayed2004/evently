@@ -3,6 +3,7 @@ import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/event.dart';
 import 'package:evently/model/event_type.dart';
 import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/ui/widgets/custom_back_button.dart';
 import 'package:evently/ui/widgets/custom_button.dart';
 import 'package:evently/ui/widgets/custom_text_form_field.dart';
 import 'package:evently/ui/widgets/date_and_time_field.dart';
@@ -58,7 +59,11 @@ class _AddEventScreenState extends State<AddEventScreen> {
             : AppColor.primaryDarkMode,
       ),
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.add_event)),
+        appBar: AppBar(
+          title: Text(l10n.add_event),
+          leading: const CustomBackButton(),
+          leadingWidth: 40,
+        ),
         body: Padding(
           padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
           child: SingleChildScrollView(
@@ -231,16 +236,22 @@ class _EventTypeSelectorState extends State<EventTypeSelector> {
   @override
   Widget build(BuildContext context) {
     final themeMode = context.read<ThemeProvider>().currentTheme;
-
+    final ThemeData theme = Theme.of(context);
     return Column(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadiusGeometry.circular(16),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadiusGeometry.circular(16),
+            border: BoxBorder.all(color: theme.colorScheme.outline),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadiusGeometry.circular(16),
 
-          child: Image.asset(
-            themeMode == ThemeMode.dark
-                ? widget.events[selectedIndex].imagePathDark
-                : widget.events[selectedIndex].imagePathLight,
+            child: Image.asset(
+              themeMode == ThemeMode.dark
+                  ? widget.events[selectedIndex].imagePathDark
+                  : widget.events[selectedIndex].imagePathLight,
+            ),
           ),
         ),
         SizedBox(height: 16),

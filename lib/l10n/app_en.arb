@@ -70,6 +70,8 @@
   "eventTime": "Event Time",
   "chooseTime": "Choose time",
   "addEvent": "Add Event",
-  "selectDateAndTime": "Please select the date and time."
+  "selectDateAndTime": "Please select the date and time.",
+  "eventDetails": "Event details",
+  "editEvent": "Edit event"
 
 }

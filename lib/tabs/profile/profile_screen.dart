@@ -86,7 +86,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                   },
                   label: l10n.logout,
-                  trailing: SvgPicture.asset('assets/svg/logout-02.svg'),
+                  trailing: Transform.flip(
+                    flipX: Directionality.of(context) == TextDirection.rtl,
+                    child: SvgPicture.asset('assets/svg/logout-02.svg'),
+                  ),
                 ),
               ],
             ),

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:evently/firebase/events_firestore_service.dart';
 import 'package:evently/model/event.dart';
+import 'package:evently/ui/widgets/show_snack_bar.dart';
 import 'package:flutter/material.dart';
 
 class EventsProvider extends ChangeNotifier {
@@ -30,11 +31,12 @@ class EventsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  toggleFavorite({required Event event}) async {
-    isLoading=true;
+  Future<void> toggleFavorite({required Event event}) async {
+    isLoading = true;
+    notifyListeners();
     event.isFavourite = !event.isFavourite;
     await EventsFirestoreService.updateEvent(event: event);
-    isLoading=false;
+    isLoading = false;
     notifyListeners();
   }
 
@@ -54,5 +56,19 @@ class EventsProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     });
+  }
+
+  Future<void> deleteEventTrigger({required String eventID}) async {
+    try {
+      isLoading = true;
+      errorMessage = null;
+      notifyListeners();
+      await EventsFirestoreService.deleteEvent(eventID: eventID);
+    } catch (e) {
+      errorMessage = e.toString();
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
   }
 }

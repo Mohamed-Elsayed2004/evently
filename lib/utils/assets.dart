@@ -8,4 +8,7 @@ class Assets {
   static const googleLogo = 'assets/images/google_logo.png';
   static const userSvg = 'assets/svg/user.svg';
   static const searchSvg = 'assets/svg/search.svg';
+  static const arrowLeftSvg = 'assets/svg/arrow-left.svg';
+  static const editSvg = 'assets/svg/edit-2.svg';
+  static const trashSvg = 'assets/svg/trash.svg';
 }

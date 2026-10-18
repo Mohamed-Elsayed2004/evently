@@ -57,4 +57,9 @@ class EventsFirestoreService {
       (snapshot) => snapshot.docs.map((doc) => doc.data()).toList(),
     );
   }
+
+  static Future<void> deleteEvent({required String eventID}) async {
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
+    await eventsCollection(uid).doc(eventID).delete();
+  }
 }

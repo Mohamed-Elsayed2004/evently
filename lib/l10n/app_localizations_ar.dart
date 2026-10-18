@@ -227,4 +227,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectDateAndTime => 'من فضلك اختر التاريخ والوقت';
+
+  @override
+  String get eventDetails => 'تفاصيل الحدث';
+
+  @override
+  String get editEvent => 'تعديل الحدث';
 }

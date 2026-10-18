@@ -227,4 +227,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectDateAndTime => 'Please select the date and time.';
+
+  @override
+  String get eventDetails => 'Event details';
+
+  @override
+  String get editEvent => 'Edit event';
 }

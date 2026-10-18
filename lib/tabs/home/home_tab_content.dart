@@ -54,11 +54,13 @@ class _HomeTabContentState extends State<HomeTabContent>
             HomeHeader(categories: category, controller: tabController),
             Expanded(
               child: context.watch<EventsProvider>().isLoading
-                  ? CircularProgressIndicator(
-                      color: themeMode == ThemeMode.light
-                          ? AppColor.primaryLightMode
-                          : AppColor.primaryDarkMode,
-                    )
+                  ? Center(
+                    child: CircularProgressIndicator(
+                        color: themeMode == ThemeMode.light
+                            ? AppColor.primaryLightMode
+                            : AppColor.primaryDarkMode,
+                      ),
+                  )
                   : TabBarView(
                       controller: tabController,
                       children: [

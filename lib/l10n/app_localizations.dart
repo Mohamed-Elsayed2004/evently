@@ -529,6 +529,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please select the date and time.'**
   String get selectDateAndTime;
+
+  /// No description provided for @eventDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Event details'**
+  String get eventDetails;
+
+  /// No description provided for @editEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit event'**
+  String get editEvent;
 }
 
 class _AppLocalizationsDelegate

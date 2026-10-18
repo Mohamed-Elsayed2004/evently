@@ -74,5 +74,7 @@
   "eventTime": "وقت الحدث",
   "chooseTime": "اختر الوقت",
   "addEvent": "إضافة حدث",
-  "selectDateAndTime": "من فضلك اختر التاريخ والوقت"
+  "selectDateAndTime": "من فضلك اختر التاريخ والوقت",
+  "eventDetails": "تفاصيل الحدث",
+  "editEvent": "تعديل الحدث"
 }

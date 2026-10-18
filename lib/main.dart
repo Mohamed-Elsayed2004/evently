@@ -6,6 +6,7 @@ import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/language_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/ui/screens/add_event.dart';
+import 'package:evently/ui/screens/event_details_screen.dart';
 import 'package:evently/ui/screens/login_screen.dart';
 import 'package:evently/ui/screens/main_layout_screen.dart';
 import 'package:evently/tabs/profile/profile_screen.dart';
@@ -55,6 +56,7 @@ class EventlyApp extends StatelessWidget {
               AppRoutes.profileScreen: (context) => ProfileScreen(),
               AppRoutes.addEventScreen: (context) => AddEventScreen(),
               AppRoutes.registerScreen: (context) => RegisterScreen(),
+              AppRoutes.eventDetailsScreen:(context) => EventDetailsScreen()
             },
             home: AuthGate(),
           );

@@ -1,5 +1,3 @@
-
-
 import 'package:evently/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,11 +25,14 @@ class _LanguageBarState extends State<LanguageBar> {
           style: theme.textTheme.displayLarge,
           value: context.read<LanguageProvider>().currentLanguage,
           isExpanded: true,
-          icon: SvgPicture.asset(
-            'assets/svg/arrow-right.svg',
-            colorFilter: ColorFilter.mode(
-              theme.colorScheme.primary,
-              BlendMode.srcIn,
+          icon: Transform.flip(
+            flipX: Directionality.of(context) == TextDirection.rtl,
+            child: SvgPicture.asset(
+              'assets/svg/arrow-right.svg',
+              colorFilter: ColorFilter.mode(
+                theme.colorScheme.primary,
+                BlendMode.srcIn,
+              ),
             ),
           ),
           items: const [
