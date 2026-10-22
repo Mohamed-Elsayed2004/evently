@@ -5,7 +5,7 @@ import 'package:evently/providers/auth_provider.dart';
 import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/language_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
-import 'package:evently/ui/screens/add_event.dart';
+import 'package:evently/ui/screens/add_and_edit_event.dart';
 import 'package:evently/ui/screens/event_details_screen.dart';
 import 'package:evently/ui/screens/login_screen.dart';
 import 'package:evently/ui/screens/main_layout_screen.dart';
@@ -38,7 +38,7 @@ class EventlyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => AuthProviderService()..listenToAuthChange(),
         ),
-       ChangeNotifierProvider(create: (_)=>EventsProvider()),
+        ChangeNotifierProvider(create: (_) => EventsProvider()),
       ],
       child: Builder(
         builder: (context) {
@@ -54,9 +54,9 @@ class EventlyApp extends StatelessWidget {
               AppRoutes.mainLayout: (context) => MainLayoutScreen(),
               AppRoutes.loginScreen: (context) => LoginScreen(),
               AppRoutes.profileScreen: (context) => ProfileScreen(),
-              AppRoutes.addEventScreen: (context) => AddEventScreen(),
+              AppRoutes.addEventScreen: (context) => AddAndEditEventScreen(),
               AppRoutes.registerScreen: (context) => RegisterScreen(),
-              AppRoutes.eventDetailsScreen:(context) => EventDetailsScreen()
+              AppRoutes.eventDetailsScreen: (context) => EventDetailsScreen(),
             },
             home: AuthGate(),
           );

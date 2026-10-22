@@ -17,9 +17,8 @@ class EventItem extends StatelessWidget {
     final ThemeMode themeMode = context.watch<ThemeProvider>().currentTheme;
     return InkWell(
       onTap: () {
-        Navigator.of(
-          context,
-        ).pushNamed(AppRoutes.eventDetailsScreen, arguments: event);
+        Navigator.of(context).pushNamed(AppRoutes.eventDetailsScreen);
+        context.read<EventsProvider>().eventDetailsUpdate(event: event);
       },
       child: Container(
         height: 203,

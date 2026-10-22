@@ -2,6 +2,7 @@ import 'package:evently/firebase/events_firestore_service.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/event.dart';
 import 'package:evently/model/event_type.dart';
+import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/ui/widgets/custom_back_button.dart';
 import 'package:evently/ui/widgets/custom_button.dart';
@@ -17,42 +18,59 @@ import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
-class AddEventScreen extends StatefulWidget {
-  const AddEventScreen({super.key});
+class AddAndEditEventScreen extends StatefulWidget {
+  const AddAndEditEventScreen({super.key});
 
   @override
-  State<AddEventScreen> createState() => _AddEventScreenState();
+  State<AddAndEditEventScreen> createState() => _AddAndEditEventScreenState();
 }
 
-class _AddEventScreenState extends State<AddEventScreen> {
+class _AddAndEditEventScreenState extends State<AddAndEditEventScreen> {
   GlobalKey<FormState> formKey = GlobalKey();
-  bool isLoading = false;
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
   String? formatedDate;
   String? formatedTime;
-  String title = '';
-  String description = '';
+  String? title;
+  String? description;
   String imagePath = '';
   String imagePathDark = '';
   String eventType = '';
+  Event? eventForUpdate;
+  bool isInitialized = false;
   late final ThemeMode themeMode;
   late final ThemeData theme;
   late final AppLocalizations l10n;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    themeMode = context.watch<ThemeProvider>().currentTheme;
-    theme = Theme.of(context);
+    if (!isInitialized) {
+      l10n = AppLocalizations.of(context)!;
+      theme = Theme.of(context);
+      themeMode = context.read<ThemeProvider>().currentTheme;
+      isInitialized = true;
+      eventForUpdate = ModalRoute.of(context)?.settings.arguments as Event?;
+      if (eventForUpdate != null) {
+        title = eventForUpdate!.title;
+        description = eventForUpdate!.description;
+        imagePath = eventForUpdate!.imagePath;
+        imagePathDark = eventForUpdate!.imagePathDark;
+        eventType = eventForUpdate!.eventType;
 
-    l10n = AppLocalizations.of(context)!;
+        selectedDate = eventForUpdate!.dateTime;
+        selectedTime = TimeOfDay.fromDateTime(eventForUpdate!.dateTime);
+
+        formatedDate = DateFormat('MMM d, y').format(eventForUpdate!.dateTime);
+        formatedTime = selectedTime!.format(context);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final eventTypes = EventType.getEventType().sublist(1);
     return ModalProgressHUD(
-      inAsyncCall: isLoading,
+      inAsyncCall: context.watch<EventsProvider>().isLoading,
       progressIndicator: CircularProgressIndicator(
         color: themeMode == ThemeMode.light
             ? AppColor.primaryLightMode
@@ -60,7 +78,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.add_event),
+          title: Text(eventForUpdate == null ? l10n.add_event : l10n.editEvent),
           leading: const CustomBackButton(),
           leadingWidth: 40,
         ),
@@ -73,8 +91,10 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 crossAxisAlignment: .start,
                 spacing: 8,
                 children: [
+                  SizedBox(height: 8),
                   EventTypeSelector(
                     events: eventTypes,
+                    eventForUpdate: eventForUpdate,
                     onEventSelected: (index) {
                       setState(() {
                         eventType = eventTypes[index].name;
@@ -86,6 +106,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   SizedBox(height: 8),
                   Text(l10n.title, style: AppTextStyle.font16Text),
                   CustomTextFormField(
+                    initialValue: title,
                     labelText: l10n.eventTitle,
                     onChange: (data) => title = data,
                     validator: (value) {
@@ -106,6 +127,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   ),
                   Text(l10n.description, style: AppTextStyle.font16Text),
                   CustomTextFormField(
+                    initialValue: description,
                     labelText: l10n.eventDescription,
                     maxLines: 5,
                     onChange: (data) => description = data,
@@ -144,43 +166,49 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   SizedBox(height: MediaQuery.sizeOf(context).height * .02),
                   CustomButton(
                     onTap: () async {
-                      if (formKey.currentState!.validate()) {
-                        if (selectedDate == null || selectedTime == null) {
-                          showSnackBar(context, l10n.selectDateAndTime);
-                          return;
-                        }
-                        try {
-                          setState(() {
-                            isLoading = true;
-                          });
+                      if (!formKey.currentState!.validate()) return;
 
-                          await EventsFirestoreService.addEvent(
-                            event: Event(
-                              title: title,
-                              description: description,
-                              imagePath: imagePath,
-                              imagePathDark: imagePathDark,
-                              dateTime: DateTime(
-                                selectedDate!.year,
-                                selectedDate!.month,
-                                selectedDate!.day,
-                                selectedTime!.hour,
-                                selectedTime!.minute,
-                              ),
-                              eventType: eventType,
-                            ),
-                          );
-                          if (context.mounted) Navigator.of(context).pop();
-                        } catch (e) {
-                          if (context.mounted) {
-                            showSnackBar(context, e.toString());
-                          }
-                        } finally {
-                          if (mounted) setState(() => isLoading = false);
-                        }
+                      if (selectedDate == null || selectedTime == null) {
+                        showSnackBar(context, l10n.selectDateAndTime);
+                        return;
                       }
+
+                      final event = Event(
+                        id: eventForUpdate?.id,
+                        title: title!,
+                        description: description!,
+                        imagePath: imagePath,
+                        imagePathDark: imagePathDark,
+                        dateTime: DateTime(
+                          selectedDate!.year,
+                          selectedDate!.month,
+                          selectedDate!.day,
+                          selectedTime!.hour,
+                          selectedTime!.minute,
+                        ),
+                        eventType: eventType,
+                      );
+
+                      final provider = context.read<EventsProvider>();
+
+                      if (eventForUpdate == null) {
+                        await provider.addEvent(event: event);
+                      } else {
+                        await provider.updateEvent(event: event);
+                      }
+
+                      if (!context.mounted) return;
+
+                      if (provider.errorMessage != null) {
+                        showSnackBar(context, provider.errorMessage!);
+                        return;
+                      }
+                      provider.eventDetailsUpdate(event: event);
+                      Navigator.of(context).pop();
                     },
-                    text: l10n.addEvent,
+                    text: eventForUpdate == null
+                        ? l10n.add_event
+                        : l10n.editEvent,
                   ),
                 ],
               ),
@@ -196,35 +224,38 @@ class _AddEventScreenState extends State<AddEventScreen> {
       context: context,
       firstDate: DateTime.now().subtract(Duration(days: 365)),
       lastDate: DateTime.now().add(Duration(days: 365)),
-      initialDate: DateTime.now(),
+      initialDate: selectedDate ?? DateTime.now(),
     );
-    selectedDate = chooseDate;
+    if (chooseDate == null) return;
     setState(() {
-      formatedDate = selectedDate == null
-          ? null
-          : DateFormat('MMM d, y').format(selectedDate!);
+      selectedDate = chooseDate;
+      formatedDate = DateFormat('MMM d, y').format(selectedDate!);
     });
   }
 
   Future<void> chooseTime() async {
     var chooseTime = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: selectedTime ?? TimeOfDay.now(),
     );
-    selectedTime = chooseTime;
+    if (chooseTime == null) return;
+
     setState(() {
-      formatedTime = chooseTime?.format(context);
+      selectedTime = chooseTime;
+      formatedTime = chooseTime.format(context);
     });
   }
 }
 
 class EventTypeSelector extends StatefulWidget {
   final List<EventType> events;
+  final Event? eventForUpdate;
   final void Function(int index) onEventSelected;
   const EventTypeSelector({
     super.key,
     required this.events,
     required this.onEventSelected,
+    this.eventForUpdate,
   });
 
   @override
@@ -232,7 +263,17 @@ class EventTypeSelector extends StatefulWidget {
 }
 
 class _EventTypeSelectorState extends State<EventTypeSelector> {
-  int selectedIndex = 0;
+  late int selectedIndex;
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.eventForUpdate == null
+        ? 0
+        : widget.events.indexWhere(
+            (eventType) => eventType.name == widget.eventForUpdate!.eventType,
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeMode = context.read<ThemeProvider>().currentTheme;
@@ -316,3 +357,18 @@ class EventTypeTab extends StatelessWidget {
     );
   }
 }
+
+/*Event(
+                              title: title!,
+                              description: description!,
+                              imagePath: imagePath,
+                              imagePathDark: imagePathDark,
+                              dateTime: DateTime(
+                                selectedDate!.year,
+                                selectedDate!.month,
+                                selectedDate!.day,
+                                selectedTime!.hour,
+                                selectedTime!.minute,
+                              ),
+                              eventType: eventType,
+                            ), */

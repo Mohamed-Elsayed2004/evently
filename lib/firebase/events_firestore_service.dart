@@ -31,7 +31,7 @@ class EventsFirestoreService {
     return quarySnabshot.docs.map<Event>((doc) => doc.data()).toList();
   }
 
-  static updateEvent({required Event event}) async {
+  static Future<void> updateEvent({required Event event}) async {
     final String uid = FirebaseAuth.instance.currentUser!.uid;
     await eventsCollection(uid).doc(event.id).update(event.toJson());
   }

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class Event {
-  String id;
+  String? id;
   String title;
   String description;
   String imagePath;
@@ -18,7 +18,7 @@ class Event {
     required this.dateTime,
     required this.eventType,
     this.isFavourite = false,
-    this.id = '',
+    this.id ,
     required this.imagePathDark,
   });
 

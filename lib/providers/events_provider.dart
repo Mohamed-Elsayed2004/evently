@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/firebase/events_firestore_service.dart';
 import 'package:evently/model/event.dart';
 import 'package:evently/ui/widgets/show_snack_bar.dart';
@@ -11,11 +12,25 @@ class EventsProvider extends ChangeNotifier {
   String eventType = '';
   String? errorMessage;
   List<Event> favoriteEvents = [];
+  late Event eventDetails;
 
   /* List<Event> eventsForCategory({required String eventType}) {
     if (eventType == 'All') return events;
     return events.where((event) => event.eventType == eventType).toList();
   }*/
+  Future<void> addEvent({required Event event}) async {
+    try {
+      isLoading = true;
+      errorMessage = null;
+      notifyListeners();
+      await EventsFirestoreService.addEvent(event: event);
+    } catch (e) {
+      errorMessage = e.toString();
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
 
   Future<void> getEvents() async {
     try {
@@ -70,5 +85,24 @@ class EventsProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<void> updateEvent({required Event event}) async {
+    try {
+      isLoading = true;
+      errorMessage = null;
+      notifyListeners();
+      await EventsFirestoreService.updateEvent(event: event);
+    } catch (e) {
+      errorMessage = e.toString();
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  void eventDetailsUpdate({required Event event}) {
+    eventDetails = event;
+    notifyListeners();
   }
 }

@@ -3,14 +3,15 @@ import 'package:evently/model/event.dart';
 import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/ui/widgets/custom_back_button.dart';
+import 'package:evently/ui/widgets/show_snack_bar.dart';
 import 'package:evently/utils/app_color.dart';
+import 'package:evently/utils/app_routes.dart';
 import 'package:evently/utils/app_text_style.dart';
 import 'package:evently/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 class EventDetailsScreen extends StatelessWidget {
@@ -21,82 +22,94 @@ class EventDetailsScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final ThemeData theme = Theme.of(context);
     final themeMode = context.read<ThemeProvider>().currentTheme;
-    final Event event = ModalRoute.of(context)!.settings.arguments as Event;
-    return ModalProgressHUD(
-      progressIndicator: CircularProgressIndicator(
-        color: themeMode == ThemeMode.light
-            ? AppColor.primaryLightMode
-            : AppColor.primaryDarkMode,
-      ),
-      inAsyncCall: context.watch<EventsProvider>().isLoading,
-      child: Scaffold(
-        appBar: AppBar(
-          leading: const CustomBackButton(),
-          leadingWidth: 40,
-          centerTitle: true,
-          title: Text(l10n.eventDetails),
-          actions: [
-            CustomActionButton(
-              imagePath: Assets.editSvg,
-              color: theme.colorScheme.primary,
-              onTap: () {},
-            ),
-            CustomActionButton(
-              imagePath: Assets.trashSvg,
-              color: theme.colorScheme.error,
-              onTap: () async {
-                await context.read<EventsProvider>().deleteEventTrigger(
-                  eventID: event.id,
-                );
-
-                if (context.mounted) Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: .start,
-              spacing: 16,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadiusGeometry.circular(16),
-                    border: BoxBorder.all(color: theme.colorScheme.outline),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(16),
-
-                    child: Image.asset(
-                      themeMode == ThemeMode.dark
-                          ? event.imagePathDark
-                          : event.imagePath,
-                    ),
-                  ),
-                ),
-                Text(event.title, style: AppTextStyle.font18TextW500),
-                DateTimeCard(theme: theme, themeMode: themeMode, event: event),
-                Text(l10n.description, style: AppTextStyle.font16Text),
-                Container(
-                  constraints: BoxConstraints(
-                    minWidth: double.infinity,
-                    minHeight: 100,
-                  ),
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: theme.colorScheme.outline),
-                    color: theme.colorScheme.surfaceContainer,
-                  ),
-                  child: Text(event.description),
-                ),
-              ],
-            ),
+    Event event = context.watch<EventsProvider>().eventDetails;
+    final provider = context.read<EventsProvider>();
+    return Scaffold(
+      appBar: AppBar(
+        leading: const CustomBackButton(),
+        leadingWidth: 40,
+        centerTitle: true,
+        title: Text(l10n.eventDetails),
+        actions: [
+          CustomActionButton(
+            imagePath: Assets.editSvg,
+            color: theme.colorScheme.primary,
+            onTap: () {
+              Navigator.of(
+                context,
+              ).pushNamed(AppRoutes.addEventScreen, arguments: event);
+            },
           ),
-        ),
+          CustomActionButton(
+            imagePath: Assets.trashSvg,
+            color: theme.colorScheme.error,
+            onTap: () async {
+              await provider.deleteEventTrigger(eventID: event.id!);
+              if (!context.mounted) return;
+              if (provider.errorMessage == null) {
+                await provider.getFavoriteEventsTrigger();
+                if (context.mounted) Navigator.of(context).pop();
+              } else {
+                if (context.mounted) {
+                  showSnackBar(context, provider.errorMessage!);
+                }
+              }
+            },
+          ),
+        ],
       ),
+      body: context.watch<EventsProvider>().isLoading
+          ? CircularProgressIndicator(
+              color: themeMode == ThemeMode.light
+                  ? AppColor.primaryLightMode
+                  : AppColor.primaryDarkMode,
+            )
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: .start,
+                  spacing: 16,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadiusGeometry.circular(16),
+                        border: BoxBorder.all(color: theme.colorScheme.outline),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(16),
+
+                        child: Image.asset(
+                          themeMode == ThemeMode.dark
+                              ? event.imagePathDark
+                              : event.imagePath,
+                        ),
+                      ),
+                    ),
+                    Text(event.title, style: AppTextStyle.font18TextW500),
+                    DateTimeCard(
+                      theme: theme,
+                      themeMode: themeMode,
+                      event: event,
+                    ),
+                    Text(l10n.description, style: AppTextStyle.font16Text),
+                    Container(
+                      constraints: BoxConstraints(
+                        minWidth: double.infinity,
+                        minHeight: 100,
+                      ),
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: theme.colorScheme.outline),
+                        color: theme.colorScheme.surfaceContainer,
+                      ),
+                      child: Text(event.description),
+                    ),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 }
