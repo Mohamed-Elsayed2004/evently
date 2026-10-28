@@ -23,7 +23,7 @@ class _LanguageBarState extends State<LanguageBar> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           style: theme.textTheme.displayLarge,
-          value: context.read<LanguageProvider>().currentLanguage,
+          value: context.watch<LanguageProvider>().currentLanguage,
           isExpanded: true,
           icon: Transform.flip(
             flipX: Directionality.of(context) == TextDirection.rtl,
@@ -40,7 +40,7 @@ class _LanguageBarState extends State<LanguageBar> {
             DropdownMenuItem(value: "ar", child: Text("العربية")),
           ],
           onChanged: (value) {
-            context.read<LanguageProvider>().changLanguage(language: value!);
+            context.read<LanguageProvider>().changeLanguage(language: value!);
           },
         ),
       ),

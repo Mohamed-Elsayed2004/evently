@@ -1,12 +1,16 @@
 import 'package:evently/firebase/firebase_auth_service.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/providers/auth_provider.dart';
 import 'package:evently/providers/language_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/providers/user_provider.dart';
 import 'package:evently/tabs/profile/language_bar.dart';
 import 'package:evently/ui/widgets/show_snack_bar.dart';
 import 'package:evently/utils/app_color.dart';
 import 'package:evently/utils/app_routes.dart';
 import 'package:evently/utils/app_text_style.dart';
+import 'package:evently/utils/assets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -20,12 +24,24 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool isLoading = false;
+  bool isInitialized = false;
+  late final AppLocalizations l10n;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!isInitialized) {
+      l10n = AppLocalizations.of(context)!;
+      isInitialized = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final userProvider = context.watch<UserProvider>();
+    final authProvider = context.watch<AuthProviderService>();
     return ModalProgressHUD(
-      inAsyncCall: isLoading,
+      inAsyncCall: authProvider.isLoading,
       child: SafeArea(
         child: Scaffold(
           body: Padding(
@@ -36,11 +52,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(height: 12),
                 ProfilePicture(),
                 Text(
-                  'Mohamed elsayed',
+                  userProvider.user?.name ?? 'No Data',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  'mohamedelsayed2004@gmail.com',
+                  userProvider.user?.email ?? 'No Data',
                   maxLines: 2,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
@@ -62,27 +78,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 LanguageBar(),
                 SettingWidget(
                   onTap: () async {
-                    try {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      await FirebaseAuthService.logoutUser();
-                      if (context.mounted) {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                          AppRoutes.loginScreen,
-                          (route) => false,
-                        );
-                      }
-                    } catch (e) {
-                      if (context.mounted) {
-                        showSnackBar(context, e.toString());
-                      }
-                    } finally {
-                      if (mounted) {
-                        setState(() {
-                          isLoading = false;
-                        });
-                      }
+                    final provider = context.read<AuthProviderService>();
+                    await provider.triggerLogout();
+
+                    if (provider.errorMessage == null && context.mounted) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        AppRoutes.loginScreen,
+                        (route) => false,
+                      );
+                    } else if (context.mounted) {
+                      showSnackBar(context, provider.errorMessage!);
                     }
                   },
                   label: l10n.logout,
@@ -109,7 +114,7 @@ class ProfilePicture extends StatelessWidget {
       width: 124,
       height: 124,
       decoration: BoxDecoration(
-        color: Colors.red,
+        image: DecorationImage(image: AssetImage(Assets.profilePic)),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(1000),
           topRight: Radius.circular(1000),

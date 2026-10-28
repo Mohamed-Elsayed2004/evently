@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/model/user_model.dart';
 import 'package:evently/utils/app_firestore_collections.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UsersFirestoreService {
   static final userRef = FirebaseFirestore.instance
@@ -18,7 +19,8 @@ class UsersFirestoreService {
     await userRef.doc(id).set(UserModel(id: id, name: name, email: email));
   }
 
-  static Stream<UserModel> getUser({required String uid}) {
+  static Stream<UserModel> getUser() {
+   String uid= FirebaseAuth.instance.currentUser!.uid;
     return userRef.doc(uid).snapshots().map((snapshot) => snapshot.data()!);
   }
 

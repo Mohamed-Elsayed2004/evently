@@ -3,7 +3,10 @@ import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/event.dart';
 import 'package:evently/model/event_type.dart';
 import 'package:evently/providers/events_provider.dart';
+import 'package:evently/providers/user_provider.dart';
 import 'package:evently/tabs/home/category_tab.dart';
+import 'package:evently/ui/widgets/language_button.dart';
+import 'package:evently/ui/widgets/theme_mode_button.dart';
 import 'package:evently/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,12 +36,19 @@ class HomeHeader extends StatelessWidget {
                   '${AppLocalizations.of(context)!.welcomeBack}✨',
                   style: AppTextStyle.font14SecText,
                 ),
+                Spacer(),
+                ThemeModeButton(),
+                SizedBox(width: 8),
+                LanguageButton(),
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text('Mohamed Elsayed', style: AppTextStyle.headLine),
+            child: Text(
+              context.watch<UserProvider>().user?.name ?? 'Waiting For Data...',
+              style: AppTextStyle.headLine,
+            ),
           ),
           SizedBox(height: 24),
           AnimatedBuilder(

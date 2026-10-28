@@ -1,6 +1,7 @@
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/tab_info.dart';
 import 'package:evently/providers/events_provider.dart';
+import 'package:evently/providers/user_provider.dart';
 import 'package:evently/tabs/favouraite/favorite_tab.dart';
 import 'package:evently/tabs/home/home_tab_content.dart';
 import 'package:evently/tabs/profile/profile_screen.dart';
@@ -28,25 +29,28 @@ class _MainLayoutScreenState extends State<MainLayoutScreen> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.addEventScreen);
-        },
-        shape: CircleBorder(),
-        child: Icon(Icons.add, color: Colors.white, size: 30),
+    return ChangeNotifierProvider(
+      create: (_)=>UserProvider()..userStreamTrigger(),
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, AppRoutes.addEventScreen);
+          },
+          shape: CircleBorder(),
+          child: Icon(Icons.add, color: Colors.white, size: 30),
+        ),
+        bottomNavigationBar: _BottomNav(
+          onTap: (index) {
+            if (index == 1) {
+              context.read<EventsProvider>().getFavoriteEventsTrigger();
+            }
+      
+            setState(() => currentIndex = index);
+          },
+          currentIndex: currentIndex,
+        ),
+        body: tabsContent[currentIndex],
       ),
-      bottomNavigationBar: _BottomNav(
-        onTap: (index) {
-          if (index == 1) {
-            context.read<EventsProvider>().getFavoriteEventsTrigger();
-          }
-
-          setState(() => currentIndex = index);
-        },
-        currentIndex: currentIndex,
-      ),
-      body: tabsContent[currentIndex],
     );
   }
 }

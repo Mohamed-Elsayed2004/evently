@@ -11,4 +11,7 @@ class Assets {
   static const arrowLeftSvg = 'assets/svg/arrow-left.svg';
   static const editSvg = 'assets/svg/edit-2.svg';
   static const trashSvg = 'assets/svg/trash.svg';
+  static const profilePic = 'assets/images/Profile pic.png';
+  static const sunSvg='assets/svg/sun.svg';
+  static const moonSvg='assets/svg/moon.svg';
 }

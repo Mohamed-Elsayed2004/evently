@@ -5,6 +5,7 @@ import 'package:evently/providers/auth_provider.dart';
 import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/language_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/providers/user_provider.dart';
 import 'package:evently/ui/screens/add_and_edit_event.dart';
 import 'package:evently/ui/screens/event_details_screen.dart';
 import 'package:evently/ui/screens/login_screen.dart';
@@ -23,18 +24,21 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(EventlyApp());
+  final languageProvider = LanguageProvider();
+  await languageProvider.loadLanguage();
+  runApp(EventlyApp(languageProvider: languageProvider));
 }
 
 class EventlyApp extends StatelessWidget {
-  const EventlyApp({super.key});
+  final LanguageProvider languageProvider;
+  const EventlyApp({super.key, required this.languageProvider});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider<LanguageProvider>.value(value: languageProvider),
         ChangeNotifierProvider(
           create: (_) => AuthProviderService()..listenToAuthChange(),
         ),
