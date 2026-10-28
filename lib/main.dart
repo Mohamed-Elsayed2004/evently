@@ -26,18 +26,30 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final languageProvider = LanguageProvider();
   await languageProvider.loadLanguage();
-  runApp(EventlyApp(languageProvider: languageProvider));
+  final themeProvider = ThemeProvider();
+  themeProvider.loadTheme();
+  runApp(
+    EventlyApp(
+      languageProvider: languageProvider,
+      themeProvider: themeProvider,
+    ),
+  );
 }
 
 class EventlyApp extends StatelessWidget {
   final LanguageProvider languageProvider;
-  const EventlyApp({super.key, required this.languageProvider});
+  final ThemeProvider themeProvider;
+  const EventlyApp({
+    super.key,
+    required this.languageProvider,
+    required this.themeProvider,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider<ThemeProvider>.value(value: themeProvider),
         ChangeNotifierProvider<LanguageProvider>.value(value: languageProvider),
         ChangeNotifierProvider(
           create: (_) => AuthProviderService()..listenToAuthChange(),
