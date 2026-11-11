@@ -233,4 +233,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editEvent => 'Edit event';
+
+  @override
+  String get passwordResetSuccess =>
+      'Password reset link has been sent to your email';
 }

@@ -34,17 +34,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> login({required String email, required String password}) async {
     if (_formKey.currentState!.validate()) {
-      final bool success = await context.read<AuthProviderService>().login(
+      final provider = context.read<AuthProviderService>();
+      final bool success = await provider.login(
         email: email,
         password: password,
       );
 
       if (mounted) {
         if (success) {
-          showSnackBar(context, 'Welcome');
-          Navigator.of(context).pushReplacementNamed(AppRoutes.mainLayout);
+          await provider.checkEmailVerification();
+          if (!mounted) {
+            return;
+          } else if (provider.isEmailVerified) {
+            showSnackBar(context, 'Welcome');
+            Navigator.of(context).pushReplacementNamed(AppRoutes.mainLayout);
+          }
         }
-        if (!success) {
+        if (!success && mounted) {
           showSnackBar(
             context,
             context.read<AuthProviderService>().errorMessage!,
@@ -136,21 +142,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           return l10n.pleaseEnterYourPassword;
                         }
 
-                        if (value.length < 6) {
-                          return l10n.passwordMustBeAtLeast6Characters;
-                        }
-
-                        if (!RegExp(r'[0-9]').hasMatch(value)) {
-                          return l10n.passwordMustContainAtLeastOneNumber;
-                        }
-
-                        if (!RegExp(
-                          r'[!@#$%^&*(),.?":{}|<>_\-\\/\[\]]',
-                        ).hasMatch(value)) {
-                          return l10n
-                              .passwordMustContainAtLeastOneSpecialCharacter;
-                        }
-
                         return null;
                       },
                     ),
@@ -158,7 +149,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Spacer(),
                         CustomTextButton(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.forgetPasswordScreen,
+                            );
+                          },
                           text: l10n.forget_password,
                         ),
                       ],

@@ -8,6 +8,7 @@ import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:evently/ui/screens/add_and_edit_event.dart';
 import 'package:evently/ui/screens/event_details_screen.dart';
+import 'package:evently/ui/screens/forget_password_screen.dart';
 import 'package:evently/ui/screens/login_screen.dart';
 import 'package:evently/ui/screens/main_layout_screen.dart';
 import 'package:evently/tabs/profile/profile_screen.dart';
@@ -73,6 +74,7 @@ class EventlyApp extends StatelessWidget {
               AppRoutes.addEventScreen: (context) => AddAndEditEventScreen(),
               AppRoutes.registerScreen: (context) => RegisterScreen(),
               AppRoutes.eventDetailsScreen: (context) => EventDetailsScreen(),
+              AppRoutes.forgetPasswordScreen: (_) => ForgetPasswordScreen(),
             },
             home: AuthGate(),
           );
@@ -89,12 +91,10 @@ class AuthGate extends StatelessWidget {
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProviderService>();
 
-    if (authProvider.currentUser == null) {
+    if (authProvider.currentUser == null || !authProvider.isEmailVerified) {
       return LoginScreen();
-    } else {
-      log(FirebaseAuth.instance.currentUser!.email!);
-      log('${authProvider.currentUser?.email}+ this is email');
-      return MainLayoutScreen();
     }
+
+    return MainLayoutScreen();
   }
 }

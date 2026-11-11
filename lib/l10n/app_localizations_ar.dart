@@ -233,4 +233,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get editEvent => 'تعديل الحدث';
+
+  @override
+  String get passwordResetSuccess =>
+      'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني';
 }

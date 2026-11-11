@@ -14,4 +14,6 @@ class Assets {
   static const profilePic = 'assets/images/Profile pic.png';
   static const sunSvg='assets/svg/sun.svg';
   static const moonSvg='assets/svg/moon.svg';
+  static const changeSetting='assets/images/change-setting.png';
+  static const changeSettingDark='assets/images/change-setting-dark.png';
 }

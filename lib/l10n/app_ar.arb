@@ -76,5 +76,6 @@
   "addEvent": "إضافة حدث",
   "selectDateAndTime": "من فضلك اختر التاريخ والوقت",
   "eventDetails": "تفاصيل الحدث",
-  "editEvent": "تعديل الحدث"
+  "editEvent": "تعديل الحدث",
+  "passwordResetSuccess": "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني"
 }

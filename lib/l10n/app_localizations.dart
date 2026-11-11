@@ -541,6 +541,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit event'**
   String get editEvent;
+
+  /// No description provided for @passwordResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset link has been sent to your email'**
+  String get passwordResetSuccess;
 }
 
 class _AppLocalizationsDelegate
