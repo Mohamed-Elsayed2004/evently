@@ -177,8 +177,12 @@ class _AddAndEditEventScreenState extends State<AddAndEditEventScreen> {
                         id: eventForUpdate?.id,
                         title: title!,
                         description: description!,
-                        imagePath: imagePath,
-                        imagePathDark: imagePathDark,
+                        imagePath: imagePath.isEmpty
+                            ? eventTypes[0].imagePathLight
+                            : imagePath,
+                        imagePathDark: imagePathDark.isEmpty
+                            ? eventTypes[0].imagePathDark
+                            : imagePathDark,
                         dateTime: DateTime(
                           selectedDate!.year,
                           selectedDate!.month,
@@ -186,7 +190,9 @@ class _AddAndEditEventScreenState extends State<AddAndEditEventScreen> {
                           selectedTime!.hour,
                           selectedTime!.minute,
                         ),
-                        eventType: eventType,
+                        eventType: eventType.isEmpty
+                            ? eventTypes[0].name
+                            : eventType,
                       );
 
                       final provider = context.read<EventsProvider>();

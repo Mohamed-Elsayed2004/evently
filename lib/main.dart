@@ -13,6 +13,7 @@ import 'package:evently/ui/screens/login_screen.dart';
 import 'package:evently/ui/screens/main_layout_screen.dart';
 import 'package:evently/tabs/profile/profile_screen.dart';
 import 'package:evently/ui/screens/register_screen.dart';
+import 'package:evently/utils/app_color.dart';
 import 'package:evently/utils/app_routes.dart';
 import 'package:evently/utils/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -90,6 +91,15 @@ class AuthGate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProviderService>();
+    final ThemeData theme = Theme.of(context);
+
+    if (!authProvider.isAuthInitialized) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(color: theme.colorScheme.primary),
+        ),
+      );
+    }
 
     if (authProvider.currentUser == null || !authProvider.isEmailVerified) {
       return LoginScreen();

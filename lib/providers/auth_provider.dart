@@ -8,6 +8,7 @@ class AuthProviderService extends ChangeNotifier {
   bool isLoading = false;
   UserModel? currentUser;
   bool isEmailVerified = false;
+  bool isAuthInitialized = false;
 
   Future<bool> register({
     required String email,
@@ -76,7 +77,7 @@ class AuthProviderService extends ChangeNotifier {
         currentUser = null;
         isEmailVerified = false;
       }
-
+      isAuthInitialized = true;
       notifyListeners();
     });
   }
