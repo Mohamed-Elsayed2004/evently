@@ -76,4 +76,165 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get profile => 'الملف الشخصي';
+
+  @override
+  String get welcomeBack => 'مرحبًا بعودتك';
+
+  @override
+  String get darkMode => 'الوضع الداكن';
+
+  @override
+  String get add_event => 'إضافة حدث';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get birthday => 'عيد ميلاد';
+
+  @override
+  String get sport => 'رياضة';
+
+  @override
+  String get book_club => 'نادي الكتاب';
+
+  @override
+  String get meeting => 'اجتماع';
+
+  @override
+  String get exhibition => 'معرض';
+
+  @override
+  String get login_to_your_account => 'تسجيل الدخول إلى حسابك';
+
+  @override
+  String get enter_your_email => 'أدخل بريدك الإلكتروني';
+
+  @override
+  String get enter_your_password => 'أدخل كلمة المرور';
+
+  @override
+  String get forget_password => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
+  String get dont_have_an_account => 'ليس لديك حساب؟';
+
+  @override
+  String get sign_up => 'إنشاء حساب';
+
+  @override
+  String get or => 'أو';
+
+  @override
+  String get login_with_google => 'تسجيل الدخول باستخدام Google';
+
+  @override
+  String get create_your_account => 'أنشئ حسابك';
+
+  @override
+  String get enter_your_name => 'أدخل اسمك';
+
+  @override
+  String get confirm_your_password => 'تأكيد كلمة المرور';
+
+  @override
+  String get already_have_an_account => 'لديك حساب بالفعل؟';
+
+  @override
+  String get sign_up_with_google => 'إنشاء حساب باستخدام Google';
+
+  @override
+  String get forget_password_title => 'نسيت كلمة المرور';
+
+  @override
+  String get reset_password => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get pleaseEnterYourName => 'من فضلك أدخل اسمك';
+
+  @override
+  String get nameCanOnlyContainLetters => 'الاسم يجب أن يحتوي على حروف فقط';
+
+  @override
+  String get pleaseEnterYourEmail => 'من فضلك أدخل بريدك الإلكتروني';
+
+  @override
+  String get pleaseEnterAValidEmail => 'من فضلك أدخل بريدًا إلكترونيًا صحيحًا';
+
+  @override
+  String get pleaseEnterYourPassword => 'من فضلك أدخل كلمة المرور';
+
+  @override
+  String get passwordMustBeAtLeast6Characters =>
+      'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل';
+
+  @override
+  String get passwordMustContainAtLeastOneNumber =>
+      'يجب أن تحتوي كلمة المرور على رقم واحد على الأقل';
+
+  @override
+  String get passwordMustContainAtLeastOneSpecialCharacter =>
+      'يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل';
+
+  @override
+  String get passwordsDoNotMatch => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get fieldIsRequired => 'هذا الحقل مطلوب';
+
+  @override
+  String get pleaseEnterAValidEgyptianPhoneNumber =>
+      'من فضلك أدخل رقم هاتف مصري صحيح';
+
+  @override
+  String get thereIsAnError => 'هناك خطأ';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get searchForEvent => 'ابحث عن حدث';
+
+  @override
+  String get title => 'العنوان';
+
+  @override
+  String get eventTitle => 'عنوان الحدث';
+
+  @override
+  String get description => 'الوصف';
+
+  @override
+  String get eventDescription => 'وصف الحدث....';
+
+  @override
+  String get eventDate => 'تاريخ الحدث';
+
+  @override
+  String get chooseDate => 'اختر التاريخ';
+
+  @override
+  String get eventTime => 'وقت الحدث';
+
+  @override
+  String get chooseTime => 'اختر الوقت';
+
+  @override
+  String get addEvent => 'إضافة حدث';
+
+  @override
+  String get selectDateAndTime => 'من فضلك اختر التاريخ والوقت';
+
+  @override
+  String get eventDetails => 'تفاصيل الحدث';
+
+  @override
+  String get editEvent => 'تعديل الحدث';
+
+  @override
+  String get passwordResetSuccess =>
+      'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني';
 }

@@ -1,28 +1,62 @@
+import 'dart:developer';
+
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/providers/auth_provider.dart';
+import 'package:evently/providers/events_provider.dart';
 import 'package:evently/providers/language_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/providers/user_provider.dart';
+import 'package:evently/ui/screens/add_and_edit_event.dart';
+import 'package:evently/ui/screens/event_details_screen.dart';
+import 'package:evently/ui/screens/forget_password_screen.dart';
 import 'package:evently/ui/screens/login_screen.dart';
 import 'package:evently/ui/screens/main_layout_screen.dart';
-import 'package:evently/ui/screens/profile_screen.dart';
+import 'package:evently/tabs/profile/profile_screen.dart';
+import 'package:evently/ui/screens/register_screen.dart';
+import 'package:evently/utils/app_color.dart';
 import 'package:evently/utils/app_routes.dart';
 import 'package:evently/utils/app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(EventlyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final languageProvider = LanguageProvider();
+  await languageProvider.loadLanguage();
+  final themeProvider = ThemeProvider();
+  themeProvider.loadTheme();
+  runApp(
+    EventlyApp(
+      languageProvider: languageProvider,
+      themeProvider: themeProvider,
+    ),
+  );
 }
 
 class EventlyApp extends StatelessWidget {
-  const EventlyApp({super.key});
+  final LanguageProvider languageProvider;
+  final ThemeProvider themeProvider;
+  const EventlyApp({
+    super.key,
+    required this.languageProvider,
+    required this.themeProvider,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider(create: (context) => LanguageProvider()),
+        ChangeNotifierProvider<ThemeProvider>.value(value: themeProvider),
+        ChangeNotifierProvider<LanguageProvider>.value(value: languageProvider),
+        ChangeNotifierProvider(
+          create: (_) => AuthProviderService()..listenToAuthChange(),
+        ),
+        ChangeNotifierProvider(create: (_) => EventsProvider()),
       ],
       child: Builder(
         builder: (context) {
@@ -37,12 +71,40 @@ class EventlyApp extends StatelessWidget {
             routes: {
               AppRoutes.mainLayout: (context) => MainLayoutScreen(),
               AppRoutes.loginScreen: (context) => LoginScreen(),
-              AppRoutes.profileScreen:(context)=>ProfileScreen()
+              AppRoutes.profileScreen: (context) => ProfileScreen(),
+              AppRoutes.addEventScreen: (context) => AddAndEditEventScreen(),
+              AppRoutes.registerScreen: (context) => RegisterScreen(),
+              AppRoutes.eventDetailsScreen: (context) => EventDetailsScreen(),
+              AppRoutes.forgetPasswordScreen: (_) => ForgetPasswordScreen(),
             },
-            initialRoute: AppRoutes.mainLayout,
+            home: AuthGate(),
           );
         },
       ),
     );
+  }
+}
+
+class AuthGate extends StatelessWidget {
+  const AuthGate({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final authProvider = context.watch<AuthProviderService>();
+    final ThemeData theme = Theme.of(context);
+
+    if (!authProvider.isAuthInitialized) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(color: theme.colorScheme.primary),
+        ),
+      );
+    }
+
+    if (authProvider.currentUser == null || !authProvider.isEmailVerified) {
+      return LoginScreen();
+    }
+
+    return MainLayoutScreen();
   }
 }

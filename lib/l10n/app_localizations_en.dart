@@ -76,4 +76,165 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get welcomeBack => 'Welcome Back';
+
+  @override
+  String get darkMode => 'Dark mode';
+
+  @override
+  String get add_event => 'Add event';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get birthday => 'Birthday';
+
+  @override
+  String get sport => 'Sport';
+
+  @override
+  String get book_club => 'Book Club';
+
+  @override
+  String get meeting => 'Meeting';
+
+  @override
+  String get exhibition => 'Exhibition';
+
+  @override
+  String get login_to_your_account => 'Login to your account';
+
+  @override
+  String get enter_your_email => 'Enter your email';
+
+  @override
+  String get enter_your_password => 'Enter your password';
+
+  @override
+  String get forget_password => 'Forget Password?';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get dont_have_an_account => 'Don’t have an account?';
+
+  @override
+  String get sign_up => 'Sign up';
+
+  @override
+  String get or => 'Or';
+
+  @override
+  String get login_with_google => 'Login with Google';
+
+  @override
+  String get create_your_account => 'Create your account';
+
+  @override
+  String get enter_your_name => 'Enter your name';
+
+  @override
+  String get confirm_your_password => 'Confirm your password';
+
+  @override
+  String get already_have_an_account => 'Already have an account?';
+
+  @override
+  String get sign_up_with_google => 'Sign up with Google';
+
+  @override
+  String get forget_password_title => 'Forget Password';
+
+  @override
+  String get reset_password => 'Reset password';
+
+  @override
+  String get pleaseEnterYourName => 'Please enter your name';
+
+  @override
+  String get nameCanOnlyContainLetters => 'Name can only contain letters';
+
+  @override
+  String get pleaseEnterYourEmail => 'Please enter your email';
+
+  @override
+  String get pleaseEnterAValidEmail => 'Please enter a valid email';
+
+  @override
+  String get pleaseEnterYourPassword => 'Please enter your password';
+
+  @override
+  String get passwordMustBeAtLeast6Characters =>
+      'Password must be at least 6 characters';
+
+  @override
+  String get passwordMustContainAtLeastOneNumber =>
+      'Password must contain at least one number';
+
+  @override
+  String get passwordMustContainAtLeastOneSpecialCharacter =>
+      'Password must contain at least one special character';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get fieldIsRequired => 'Field is required';
+
+  @override
+  String get pleaseEnterAValidEgyptianPhoneNumber =>
+      'Please enter a valid Egyptian phone number';
+
+  @override
+  String get thereIsAnError => 'There is an error';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get searchForEvent => 'Search for event';
+
+  @override
+  String get title => 'Title';
+
+  @override
+  String get eventTitle => 'Event Title';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get eventDescription => 'Event Description....';
+
+  @override
+  String get eventDate => 'Event Date';
+
+  @override
+  String get chooseDate => 'Choose date';
+
+  @override
+  String get eventTime => 'Event Time';
+
+  @override
+  String get chooseTime => 'Choose time';
+
+  @override
+  String get addEvent => 'Add Event';
+
+  @override
+  String get selectDateAndTime => 'Please select the date and time.';
+
+  @override
+  String get eventDetails => 'Event details';
+
+  @override
+  String get editEvent => 'Edit event';
+
+  @override
+  String get passwordResetSuccess =>
+      'Password reset link has been sent to your email';
 }

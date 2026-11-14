@@ -1,0 +1,138 @@
+import 'package:evently/model/event.dart';
+import 'package:evently/providers/events_provider.dart';
+import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/utils/app_color.dart';
+import 'package:evently/utils/app_routes.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+class EventItem extends StatelessWidget {
+  final Event event;
+  const EventItem({super.key, required this.event});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final ThemeMode themeMode = context.watch<ThemeProvider>().currentTheme;
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pushNamed(AppRoutes.eventDetailsScreen);
+        context.read<EventsProvider>().eventDetailsUpdate(event: event);
+      },
+      child: Container(
+        height: 203,
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: theme.colorScheme.outline),
+          image: DecorationImage(
+            image: AssetImage(
+              themeMode == ThemeMode.light
+                  ? event.imagePath
+                  : event.imagePathDark,
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: .start,
+          children: [
+            DateBadge(theme: theme, event: event),
+            Spacer(),
+            TitleBar(theme: theme, event: event),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TitleBar extends StatefulWidget {
+  const TitleBar({super.key, required this.theme, required this.event});
+
+  final ThemeData theme;
+  final Event event;
+
+  @override
+  State<TitleBar> createState() => _TitleBarState();
+}
+
+class _TitleBarState extends State<TitleBar> {
+  late ThemeMode themeMode;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    themeMode = context.watch<ThemeProvider>().currentTheme;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: widget.theme.scaffoldBackgroundColor,
+      ),
+      padding: EdgeInsets.all(8),
+      child: Row(
+        children: [
+          Text(
+            widget.event.title,
+            style: TextStyle(fontWeight: FontWeight.w500),
+          ),
+          Spacer(),
+          InkWell(
+            onTap: () {
+              context.read<EventsProvider>().toggleFavorite(
+                event: widget.event,
+              );
+              context.read<EventsProvider>().getFavoriteEventsTrigger();
+            },
+
+            child: context.watch<EventsProvider>().isLoading
+                ? CircularProgressIndicator(
+                    color: themeMode == ThemeMode.light
+                        ? AppColor.primaryLightMode
+                        : AppColor.primaryDarkMode,
+                  )
+                : Icon(
+                    widget.event.isFavourite
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: widget.theme.colorScheme.primary,
+                    size: 25,
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DateBadge extends StatelessWidget {
+  const DateBadge({super.key, required this.theme, required this.event});
+
+  final ThemeData theme;
+  final Event event;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.scaffoldBackgroundColor,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: theme.colorScheme.outline),
+      ),
+      padding: EdgeInsets.all(8),
+      child: Text(
+        DateFormat('dd MMM').format(event.dateTime),
+        style: TextStyle(
+          color: theme.colorScheme.primary,
+          fontWeight: FontWeight(600),
+          fontSize: 16,
+        ),
+      ),
+    );
+  }
+}
